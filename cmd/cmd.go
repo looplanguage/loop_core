@@ -1,7 +1,5 @@
 package cmd
 
-import "fmt"
-
 func Execute() {
-	fmt.Println("Execute!")
+	// REPL here for testing while developing
 }
