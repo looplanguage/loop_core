@@ -3,13 +3,14 @@ package lexer
 import (
 	"git.kanersps.pw/loop/models/tokens"
 	"strconv"
+	"unicode"
 )
 
 type Lexer struct {
-	input string
-	curPosition int
+	input        string
+	curPosition  int
 	peekPosition int
-	character byte
+	character    rune
 }
 
 func Create(input string) *Lexer {
@@ -23,7 +24,7 @@ func (l *Lexer) NextCharacter() {
 	if l.peekPosition >= len(l.input) {
 		l.character = 0
 	} else {
-		l.character = l.input[l.peekPosition]
+		l.character = rune(l.input[l.peekPosition])
 	}
 
 	l.curPosition = l.peekPosition
@@ -44,10 +45,16 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = tokens.Token{Type: tokens.Plus, Literal: string(l.character)}
 	case ';':
 		token = tokens.Token{Type: tokens.Semicolon, Literal: string(l.character)}
+	case '=':
+		token = tokens.Token{Type: tokens.Assign, Literal: string(l.character)}
 	default:
 		if isNumber(l.character) {
 			value := l.readNumber()
 			return tokens.Token{Type: tokens.Integer, Literal: value}
+		} else if isCharacter(l.character) {
+			value := l.readIdentifier()
+			identifierType := tokens.FindKeyword(value)
+			return tokens.Token{Type: identifierType, Literal: value}
 		} else {
 			token = tokens.Token{
 				Type:    tokens.EOF,
@@ -77,7 +84,17 @@ func (l *Lexer) readNumber() string {
 	return l.input[position:l.curPosition]
 }
 
-func isNumber(input byte) bool {
+func (l *Lexer) readIdentifier() string {
+	position := l.curPosition
+
+	for isCharacter(l.character) {
+		l.NextCharacter()
+	}
+
+	return l.input[position:l.curPosition]
+}
+
+func isNumber(input rune) bool {
 	_, ok := strconv.Atoi(string(input))
 
 	if ok == nil {
@@ -85,4 +102,12 @@ func isNumber(input byte) bool {
 	} else {
 		return false
 	}
+}
+
+func isCharacter(input rune) bool {
+	if unicode.IsLetter(input) {
+		return true
+	}
+
+	return false
 }
