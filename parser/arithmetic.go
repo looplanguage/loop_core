@@ -16,7 +16,7 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 	}
 
 	expr := &ast.IntegerLiteral{
-		Token:   p.CurrentToken,
+		Token: p.CurrentToken,
 		Value: int64(integer),
 	}
 
@@ -25,4 +25,18 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 	}
 
 	return expr
+}
+
+func (p *Parser) parseSuffixExpression(left ast.Expression) ast.Expression {
+	exp := &ast.SuffixExpression{
+		Token:    p.CurrentToken,
+		Left:     left,
+		Operator: p.CurrentToken.Literal,
+	}
+
+	p.NextToken()
+
+	exp.Right = p.parseExpression()
+
+	return exp
 }

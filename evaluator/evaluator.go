@@ -13,6 +13,11 @@ func Eval(node ast.Node) object.Object {
 		return &object.Integer{Value: node.Value}
 	case *ast.ExpressionStatement:
 		return Eval(node.Expression)
+	case *ast.SuffixExpression:
+		left := Eval(node.Left)
+		right := Eval(node.Right)
+
+		return evalSuffixExpression(left, right, "")
 	}
 
 	return nil

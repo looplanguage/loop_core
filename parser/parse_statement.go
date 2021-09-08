@@ -2,6 +2,7 @@ package parser
 
 import (
 	"git.kanersps.pw/loop/models/ast"
+	"git.kanersps.pw/loop/models/tokens"
 )
 
 func (p *Parser) parseStatement() ast.Statement {
@@ -13,7 +14,7 @@ func (p *Parser) parseStatement() ast.Statement {
 
 func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 	expression := &ast.ExpressionStatement{
-		Token:      p.CurrentToken,
+		Token: p.CurrentToken,
 	}
 
 	expression.Expression = p.parseExpression()
@@ -22,11 +23,26 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 }
 
 func (p *Parser) parseExpression() ast.Expression {
-	if fn, ok := p.prefixParsers[p.CurrentToken.Type]; ok {
-		result := fn()
+	prefixFn := p.prefixParsers[p.CurrentToken.Type]
 
-		return result
+	if prefixFn == nil {
+		// TODO: add parser error
+		return nil
 	}
 
-	return nil
+	expression := prefixFn()
+
+	for !p.peekTokenIs(tokens.Semicolon) {
+		suffixFn := p.suffixParsers[p.PeekToken.Type]
+
+		if suffixFn == nil {
+			return expression
+		}
+
+		p.NextToken()
+
+		expression = suffixFn(expression)
+	}
+
+	return expression
 }

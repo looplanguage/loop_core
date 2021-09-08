@@ -21,13 +21,16 @@ type Parser struct {
 
 func Create(l *lexer.Lexer) *Parser {
 	parser := &Parser{
-		lexer:        l,
+		lexer:         l,
 		prefixParsers: make(map[tokens.TokenType]prefixParseFunction),
 		suffixParsers: make(map[tokens.TokenType]suffixParseFunction),
 	}
 
 	// Register prefix parsers
 	parser.registerPrefixParser(tokens.Integer, parser.parseIntegerLiteral)
+
+	// Register suffix parsers
+	parser.registerSuffixParser(tokens.Plus, parser.parseSuffixExpression)
 
 	// Call twice to fill CurrentToken & PeekToken
 	parser.NextToken()
