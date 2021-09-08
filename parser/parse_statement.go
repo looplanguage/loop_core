@@ -7,6 +7,8 @@ import (
 
 func (p *Parser) parseStatement() ast.Statement {
 	switch p.CurrentToken.Type {
+	case tokens.VariableDeclaration:
+		return p.parseVariable()
 	default:
 		return p.parseExpressionStatement()
 	}

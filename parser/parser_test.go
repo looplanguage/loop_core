@@ -6,7 +6,11 @@ import (
 )
 
 func TestParser_NextToken(t *testing.T) {
-	input := `1; 1`
+	input := `
+1;
+var test = 1;
+test;
+`
 
 	l := lexer.Create(input)
 	p := Create(l)

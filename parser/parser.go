@@ -28,6 +28,7 @@ func Create(l *lexer.Lexer) *Parser {
 
 	// Register prefix parsers
 	parser.registerPrefixParser(tokens.Integer, parser.parseIntegerLiteral)
+	parser.registerPrefixParser(tokens.Identifier, parser.parseIdentifier)
 
 	// Register suffix parsers
 	parser.registerSuffixParser(tokens.Plus, parser.parseSuffixExpression)
