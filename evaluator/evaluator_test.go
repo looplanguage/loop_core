@@ -9,7 +9,7 @@ import (
 
 func TestEval_Integers(t *testing.T) {
 	tests := []struct {
-		input string
+		input    string
 		expected int64
 	}{
 		{"1", 1},
@@ -32,6 +32,15 @@ func TestEval_Integers(t *testing.T) {
 
 		test++
 	}
+}
+
+// NOT EVALUATED YET
+func TestEval_Variables(t *testing.T) {
+	test := "var test = 1"
+
+	evaluated := testEvaluate(test)
+
+	//if evaluated.Type() != object.
 }
 
 func testEvaluate(input string) object.Object {
