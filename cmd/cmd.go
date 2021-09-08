@@ -13,6 +13,7 @@ func Execute() {
 	// REPL here for testing while developing
 	reader := bufio.NewScanner(os.Stdin)
 
+	// TODO: Support up arrow to get last command
 	for {
 		fmt.Print("# ")
 
