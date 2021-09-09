@@ -2,6 +2,7 @@ package evaluator
 
 import (
 	"git.kanersps.pw/loop/lexer"
+	"git.kanersps.pw/loop/models/environment"
 	"git.kanersps.pw/loop/models/object"
 	"git.kanersps.pw/loop/parser"
 	"testing"
@@ -38,7 +39,7 @@ func TestEval_Integers(t *testing.T) {
 func TestEval_Variables(t *testing.T) {
 	test := "var test = 1"
 
-	evaluated := testEvaluate(test)
+	_ = testEvaluate(test)
 
 	//if evaluated.Type() != object.
 }
@@ -49,5 +50,7 @@ func testEvaluate(input string) object.Object {
 
 	program := p.Parse()
 
-	return Eval(program)
+	env := *environment.CreateEnvironment()
+
+	return Eval(program, env)
 }
