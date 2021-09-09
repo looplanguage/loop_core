@@ -35,13 +35,28 @@ func TestEval_Integers(t *testing.T) {
 	}
 }
 
-// NOT EVALUATED YET
 func TestEval_Variables(t *testing.T) {
-	test := "var test = 1"
+	tests := []struct {
+		input    string
+		expected int64
+	}{
+		{"var test = 1;", 1},
+		{"var test = 20 * 2; test;", 40},
+		{"var test = 20 * 2; test * 2;", 80},
+		{"var test = 20 * 2 - 10; var testtwo = test + 10; testtwo;", 40},
+	}
 
-	_ = testEvaluate(test)
+	for c, tc := range tests {
+		evaluated := testEvaluate(tc.input)
 
-	//if evaluated.Type() != object.
+		if evaluated.Type() != object.INTEGER {
+			t.Fatalf("(%d/%d) evaluated.Type is incorrect. expected=%q. got=%q", c+1, len(tests), object.INTEGER, evaluated.Type())
+		}
+
+		if evaluated.(*object.Integer).Value != tc.expected {
+			t.Fatalf("(%d/%d) evaluated.Value is incorrect. expected=%d. got=%d", c+1, len(tests), tc.expected, evaluated.(*object.Integer).Value)
+		}
+	}
 }
 
 func testEvaluate(input string) object.Object {

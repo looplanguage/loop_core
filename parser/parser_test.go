@@ -17,7 +17,7 @@ test;
 
 	program := p.Parse()
 
-	if len(program.Statements) != 2 {
+	if len(program.Statements) != 3 {
 		t.Fatalf("len(program.Statements) is not correct. expected=%d. got=%d", 2, len(program.Statements))
 	}
 }
