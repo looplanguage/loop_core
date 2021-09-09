@@ -21,9 +21,11 @@ func (i *Integer) Inspect() string { return fmt.Sprintf("%d", i.Value) }
 
 type Error struct {
 	Message string
-	Line    int64
-	Column  int64
+	Line    int
+	Column  int
 }
 
-func (e *Error) Type() string    { return ERROR }
-func (e *Error) Inspect() string { return fmt.Sprintf("Exception on line %d: %s", e.Line, e.Message) }
+func (e *Error) Type() string { return ERROR }
+func (e *Error) Inspect() string {
+	return fmt.Sprintf("EvaluationException at %d,%d: %s", e.Line, e.Column, e.Message)
+}

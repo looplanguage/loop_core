@@ -89,5 +89,5 @@ func (p *Parser) NextToken() {
 
 // Add an error
 func (p *Parser) AddError(err string) {
-	p.Errors = append(p.Errors, fmt.Sprintf("ParserException at %d,%d: %s", p.CurrentToken.Line, p.CurrentToken.Column, err))
+	p.Errors = append(p.Errors, fmt.Sprintf("ParserException at %d,%d: %s", p.CurrentToken.Line, p.lexer.CurColumn, err))
 }

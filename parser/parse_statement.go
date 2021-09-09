@@ -30,7 +30,7 @@ func (p *Parser) parseExpression(pre int) ast.Expression {
 	prefixFn := p.prefixParsers[p.CurrentToken.Type]
 
 	if prefixFn == nil {
-		p.AddError(fmt.Sprintf("no prefix parser. expected=prefixParseFn. got=nil"))
+		p.AddError(fmt.Sprintf("no prefix parser for %q. expected=prefixParseFn. got=nil", p.CurrentToken.Name()))
 		return nil
 	}
 
@@ -57,6 +57,7 @@ func (p *Parser) parseGroupedExpression() ast.Expression {
 
 	p.NextToken()
 	if p.CurrentToken.Type != tokens.RightParenthesis {
+		p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", ")", p.CurrentToken.Literal))
 		return nil
 	}
 

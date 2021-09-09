@@ -20,5 +20,5 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 		return &object.Integer{Value: leftValue.Value - rightValue.Value}
 	}
 
-	return &object.Error{Message: fmt.Sprintf("Invalid operator. got=%q", operator)}
+	return &object.Error{Message: fmt.Sprintf("invalid operator. got=%q", operator)}
 }

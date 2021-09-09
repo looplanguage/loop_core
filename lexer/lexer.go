@@ -1,7 +1,6 @@
 package lexer
 
 import (
-	"fmt"
 	"git.kanersps.pw/loop/models/tokens"
 	"strconv"
 	"unicode"
@@ -13,7 +12,7 @@ type Lexer struct {
 	peekPosition int
 	character    rune
 	line         int
-	curColumn    int
+	CurColumn    int
 }
 
 func Create(input string) *Lexer {
@@ -28,10 +27,10 @@ func (l *Lexer) NextCharacter() {
 		l.character = 0
 	} else {
 		l.character = rune(l.input[l.peekPosition])
+		l.CurColumn++
 	}
 
 	l.curPosition = l.peekPosition
-	l.curColumn++
 	l.peekPosition++
 }
 
@@ -83,7 +82,7 @@ func (l *Lexer) skipWhitespace() {
 	for l.character == ' ' || l.character == '\t' || l.character == '\n' || l.character == '\r' {
 		if l.character == '\n' || l.character == '\r' {
 			l.line++
-			l.curColumn = 0
+			l.CurColumn = 0
 		}
 
 		l.NextCharacter()
@@ -130,6 +129,7 @@ func isCharacter(input rune) bool {
 
 func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
 	literal := string(l.character)
+	column := l.CurColumn
 
 	if isNumber(l.character) {
 		literal = l.readNumber()
@@ -138,6 +138,5 @@ func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
 		token = tokens.FindKeyword(literal)
 	}
 
-	fmt.Println(l.curColumn)
-	return tokens.Token{Type: token, Literal: literal, Line: l.line, Column: l.curColumn}
+	return tokens.Token{Type: token, Literal: literal, Line: l.line, Column: column - 1}
 }

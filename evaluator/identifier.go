@@ -15,5 +15,5 @@ func evalIdentifier(identifier *ast.Identifier, env environment.Environment) obj
 	}
 
 	// TODO: return error
-	return &object.Error{Message: fmt.Sprintf("Identifier %q not defined", identifier.Value)}
+	return &object.Error{Message: fmt.Sprintf("identifier %q not defined", identifier.Value), Line: identifier.Token.Line, Column: identifier.Token.Column}
 }
