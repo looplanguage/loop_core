@@ -22,7 +22,7 @@ func Eval(node ast.Node, env environment.Environment) object.Object {
 		left := Eval(node.Left, env)
 		right := Eval(node.Right, env)
 
-		return evalSuffixExpression(left, right, "")
+		return evalSuffixExpression(left, right, node.Operator)
 	}
 
 	return nil

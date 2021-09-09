@@ -32,6 +32,9 @@ func Create(l *lexer.Lexer) *Parser {
 
 	// Register suffix parsers
 	parser.registerSuffixParser(tokens.Plus, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.Asterisk, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.Slash, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.Minus, parser.parseSuffixExpression)
 
 	// Call twice to fill CurrentToken & PeekToken
 	parser.NextToken()
@@ -73,6 +76,8 @@ func (p *Parser) peekTokenIs(tokenType tokens.TokenType) bool {
 
 	return false
 }
+
+// Peek precedence
 
 func (p *Parser) NextToken() {
 	p.CurrentToken = p.PeekToken

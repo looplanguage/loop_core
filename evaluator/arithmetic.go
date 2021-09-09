@@ -6,5 +6,17 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 	leftValue := left.(*object.Integer)
 	rightValue := right.(*object.Integer)
 
+	switch operator {
+	case "+":
+		return &object.Integer{Value: leftValue.Value + rightValue.Value}
+	case "*":
+		return &object.Integer{Value: leftValue.Value * rightValue.Value}
+	case "/":
+		return &object.Integer{Value: leftValue.Value / rightValue.Value}
+	case "-":
+		return &object.Integer{Value: leftValue.Value - rightValue.Value}
+	}
+
+	// TODO: Return error instead
 	return &object.Integer{Value: leftValue.Value + rightValue.Value}
 }

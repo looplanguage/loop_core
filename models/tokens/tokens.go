@@ -33,6 +33,9 @@ const (
 	VariableDeclaration
 	Identifier
 	Assign
+	Asterisk
+	Slash
+	Minus
 )
 
 func FindKeyword(keyword string) TokenType {

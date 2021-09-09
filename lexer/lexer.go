@@ -43,6 +43,12 @@ func (l *Lexer) NextToken() tokens.Token {
 	switch l.character {
 	case '+':
 		token = tokens.Token{Type: tokens.Plus, Literal: string(l.character)}
+	case '*':
+		token = tokens.Token{Type: tokens.Asterisk, Literal: string(l.character)}
+	case '/':
+		token = tokens.Token{Type: tokens.Slash, Literal: string(l.character)}
+	case '-':
+		token = tokens.Token{Type: tokens.Minus, Literal: string(l.character)}
 	case ';':
 		token = tokens.Token{Type: tokens.Semicolon, Literal: string(l.character)}
 	case '=':
