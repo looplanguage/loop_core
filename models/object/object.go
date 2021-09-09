@@ -3,8 +3,9 @@ package object
 import "fmt"
 
 const (
-	INTEGER = "INTEGER"
-	ERROR   = "ERROR"
+	INTEGER  = "INTEGER"
+	ERROR    = "ERROR"
+	FUNCTION = "FUNCTION"
 )
 
 type Object interface {

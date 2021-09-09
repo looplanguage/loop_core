@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"git.kanersps.pw/loop/evaluator"
 	"git.kanersps.pw/loop/lexer"
-	"git.kanersps.pw/loop/models/environment"
+	"git.kanersps.pw/loop/models/object"
 	"git.kanersps.pw/loop/parser"
 	"os"
 )
@@ -14,7 +14,7 @@ func Execute() {
 	// REPL here for testing while developing
 	reader := bufio.NewScanner(os.Stdin)
 
-	env := *environment.CreateEnvironment()
+	env := object.CreateEnvironment()
 
 	// TODO: Support up arrow to get last command
 	for {

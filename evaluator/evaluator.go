@@ -2,11 +2,10 @@ package evaluator
 
 import (
 	"git.kanersps.pw/loop/models/ast"
-	"git.kanersps.pw/loop/models/environment"
 	"git.kanersps.pw/loop/models/object"
 )
 
-func Eval(node ast.Node, env environment.Environment) object.Object {
+func Eval(node ast.Node, env *object.Environment) object.Object {
 	switch node := node.(type) {
 	case *ast.Program:
 		return evalProgram(node.Statements, env)
@@ -18,17 +17,54 @@ func Eval(node ast.Node, env environment.Environment) object.Object {
 		return evalVariableDeclaration(node.Identifier, node.Value, env)
 	case *ast.Identifier:
 		return evalIdentifier(node, env)
+	case *ast.Function:
+		return evalFunction(node.Body, env)
+	case *ast.CallExpression:
+		function := Eval(node.Function, env)
+		if function.Type() == object.ERROR {
+			return function
+		}
+
+		args := evalExpressions(node.Parameters, env)
+
+		if len(args) == 1 && args[0].Type() == object.ERROR {
+			return args[0]
+		}
+
+		return applyFunction(function, args)
 	case *ast.SuffixExpression:
 		left := Eval(node.Left, env)
 		right := Eval(node.Right, env)
 
 		return evalSuffixExpression(left, right, node.Operator)
+	case *ast.BlockStatement:
+		var val object.Object
+
+		for _, exp := range node.Statements {
+			val = Eval(exp, env)
+		}
+
+		return val
 	}
 
 	return nil
 }
 
-func evalProgram(statements []ast.Statement, env environment.Environment) object.Object {
+func evalExpressions(parameters []ast.Expression, env *object.Environment) []object.Object {
+	var params []object.Object
+
+	for _, param := range parameters {
+		exp := Eval(param, env)
+
+		if exp != nil {
+			params = append(params, exp)
+		}
+	}
+
+	return params
+}
+
+func evalProgram(statements []ast.Statement, env *object.Environment) object.Object {
 	var result object.Object
 
 	for _, statement := range statements {

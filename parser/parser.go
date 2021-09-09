@@ -33,12 +33,14 @@ func Create(l *lexer.Lexer) *Parser {
 	parser.registerPrefixParser(tokens.Integer, parser.parseIntegerLiteral)
 	parser.registerPrefixParser(tokens.Identifier, parser.parseIdentifier)
 	parser.registerPrefixParser(tokens.LeftParenthesis, parser.parseGroupedExpression)
+	parser.registerPrefixParser(tokens.Func, parser.parseFunction)
 
 	// Register suffix parsers
 	parser.registerSuffixParser(tokens.Plus, parser.parseSuffixExpression)
 	parser.registerSuffixParser(tokens.Asterisk, parser.parseSuffixExpression)
 	parser.registerSuffixParser(tokens.Slash, parser.parseSuffixExpression)
 	parser.registerSuffixParser(tokens.Minus, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.LeftParenthesis, parser.parseCallExpression)
 
 	// Call twice to fill CurrentToken & PeekToken
 	parser.NextToken()

@@ -9,11 +9,13 @@ const (
 	SUM
 	PRODUCT
 	PREFIX
+	CALL
 )
 
 var Precedences = map[tokens.TokenType]int{
-	tokens.Plus:     SUM,
-	tokens.Minus:    SUM,
-	tokens.Asterisk: PRODUCT,
-	tokens.Slash:    PRODUCT,
+	tokens.Plus:            SUM,
+	tokens.Minus:           SUM,
+	tokens.Asterisk:        PRODUCT,
+	tokens.Slash:           PRODUCT,
+	tokens.LeftParenthesis: CALL,
 }
