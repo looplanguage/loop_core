@@ -11,6 +11,7 @@ type Token struct {
 
 var keywords = map[string]TokenType{
 	"var": VariableDeclaration,
+	"fun": Func,
 }
 
 func (t *Token) Name() string {
@@ -30,6 +31,10 @@ var translator = map[TokenType]string{
 	Minus:               "-",
 	LeftParenthesis:     "(",
 	RightParenthesis:    ")",
+	Func:                "fun",
+	LeftBrace:           "{",
+	RightBrace:          "}",
+	Comma:               ",",
 }
 
 const (
@@ -45,6 +50,10 @@ const (
 	Minus
 	LeftParenthesis
 	RightParenthesis
+	Func
+	LeftBrace
+	RightBrace
+	Comma
 )
 
 func FindKeyword(keyword string) TokenType {

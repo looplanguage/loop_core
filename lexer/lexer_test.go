@@ -9,6 +9,8 @@ func TestLexer_NextToken(t *testing.T) {
 	input := `
 100 + 1;
 var test = 40;
+
+var fn = fun(a, b) {}
 `
 
 	expected := []tokens.Token{
@@ -24,6 +26,19 @@ var test = 40;
 		{Type: tokens.Assign, Literal: "="},
 		{Type: tokens.Integer, Literal: "40"},
 		{Type: tokens.Semicolon, Literal: ";"},
+
+		// Function declaration
+		{Type: tokens.VariableDeclaration, Literal: "var"},
+		{Type: tokens.Identifier, Literal: "fn"},
+		{Type: tokens.Assign, Literal: "="},
+		{Type: tokens.Func, Literal: "fun"},
+		{Type: tokens.LeftParenthesis, Literal: "("},
+		{Type: tokens.Identifier, Literal: "a"},
+		{Type: tokens.Comma, Literal: ","},
+		{Type: tokens.Identifier, Literal: "b"},
+		{Type: tokens.RightParenthesis, Literal: ")"},
+		{Type: tokens.LeftBrace, Literal: "{"},
+		{Type: tokens.RightBrace, Literal: "}"},
 
 		// End of file
 		{Type: tokens.EOF, Literal: ""},

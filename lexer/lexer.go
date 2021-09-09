@@ -60,6 +60,12 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = createToken(tokens.LeftParenthesis, l)
 	case ')':
 		token = createToken(tokens.RightParenthesis, l)
+	case '{':
+		token = createToken(tokens.LeftBrace, l)
+	case '}':
+		token = createToken(tokens.RightBrace, l)
+	case ',':
+		token = createToken(tokens.Comma, l)
 	default:
 		if isNumber(l.character) {
 			return createToken(tokens.Integer, l)
