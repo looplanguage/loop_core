@@ -49,3 +49,15 @@ func (p *Parser) parseExpression(pre int) ast.Expression {
 
 	return expression
 }
+
+func (p *Parser) parseGroupedExpression() ast.Expression {
+	p.NextToken()
+	exp := p.parseExpression(precedence.LOWEST)
+
+	p.NextToken()
+	if p.CurrentToken.Type != tokens.RightParenthesis {
+		return nil
+	}
+
+	return exp
+}

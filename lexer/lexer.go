@@ -53,6 +53,10 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = tokens.Token{Type: tokens.Semicolon, Literal: string(l.character)}
 	case '=':
 		token = tokens.Token{Type: tokens.Assign, Literal: string(l.character)}
+	case '(':
+		token = tokens.Token{Type: tokens.LeftParenthesis, Literal: string(l.character)}
+	case ')':
+		token = tokens.Token{Type: tokens.RightParenthesis, Literal: string(l.character)}
 	default:
 		if isNumber(l.character) {
 			value := l.readNumber()

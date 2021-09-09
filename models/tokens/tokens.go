@@ -22,7 +22,12 @@ var translator = map[TokenType]string{
 	Semicolon:           ";",
 	VariableDeclaration: "var",
 	Identifier:          "Identifier",
-	Assign:              "Assign",
+	Assign:              "=",
+	Asterisk:            "*",
+	Slash:               "/",
+	Minus:               "-",
+	LeftParenthesis:     "(",
+	RightParenthesis:    ")",
 }
 
 const (
@@ -36,6 +41,8 @@ const (
 	Asterisk
 	Slash
 	Minus
+	LeftParenthesis
+	RightParenthesis
 )
 
 func FindKeyword(keyword string) TokenType {
