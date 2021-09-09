@@ -34,9 +34,11 @@ func (p *Parser) parseSuffixExpression(left ast.Expression) ast.Expression {
 		Operator: p.CurrentToken.Literal,
 	}
 
+	pre := p.currentPrecedence()
+
 	p.NextToken()
 
-	exp.Right = p.parseExpression()
+	exp.Right = p.parseExpression(pre)
 
 	return exp
 }

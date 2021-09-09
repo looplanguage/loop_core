@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"git.kanersps.pw/loop/models/ast"
 	"git.kanersps.pw/loop/models/tokens"
+	"git.kanersps.pw/loop/parser/precedence"
 )
 
 func (p *Parser) parseVariable() ast.Statement {
@@ -30,7 +31,7 @@ func (p *Parser) parseVariable() ast.Statement {
 	// Token was (Assign) and becomes (Expression/Value)
 	p.NextToken()
 
-	exp := p.parseExpression()
+	exp := p.parseExpression(precedence.EQUALS)
 
 	variable.Identifier = &ast.Identifier{
 		Token: name,
