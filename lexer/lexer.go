@@ -1,6 +1,7 @@
 package lexer
 
 import (
+	"fmt"
 	"git.kanersps.pw/loop/models/tokens"
 	"strconv"
 	"unicode"
@@ -11,6 +12,8 @@ type Lexer struct {
 	curPosition  int
 	peekPosition int
 	character    rune
+	line         int
+	curColumn    int
 }
 
 func Create(input string) *Lexer {
@@ -28,6 +31,7 @@ func (l *Lexer) NextCharacter() {
 	}
 
 	l.curPosition = l.peekPosition
+	l.curColumn++
 	l.peekPosition++
 }
 
@@ -42,29 +46,26 @@ func (l *Lexer) NextToken() tokens.Token {
 
 	switch l.character {
 	case '+':
-		token = tokens.Token{Type: tokens.Plus, Literal: string(l.character)}
+		token = createToken(tokens.Plus, l)
 	case '*':
-		token = tokens.Token{Type: tokens.Asterisk, Literal: string(l.character)}
+		token = createToken(tokens.Asterisk, l)
 	case '/':
-		token = tokens.Token{Type: tokens.Slash, Literal: string(l.character)}
+		token = createToken(tokens.Slash, l)
 	case '-':
-		token = tokens.Token{Type: tokens.Minus, Literal: string(l.character)}
+		token = createToken(tokens.Minus, l)
 	case ';':
-		token = tokens.Token{Type: tokens.Semicolon, Literal: string(l.character)}
+		token = createToken(tokens.Semicolon, l)
 	case '=':
-		token = tokens.Token{Type: tokens.Assign, Literal: string(l.character)}
+		token = createToken(tokens.Assign, l)
 	case '(':
-		token = tokens.Token{Type: tokens.LeftParenthesis, Literal: string(l.character)}
+		token = createToken(tokens.LeftParenthesis, l)
 	case ')':
-		token = tokens.Token{Type: tokens.RightParenthesis, Literal: string(l.character)}
+		token = createToken(tokens.RightParenthesis, l)
 	default:
 		if isNumber(l.character) {
-			value := l.readNumber()
-			return tokens.Token{Type: tokens.Integer, Literal: value}
+			return createToken(tokens.Integer, l)
 		} else if isCharacter(l.character) {
-			value := l.readIdentifier()
-			identifierType := tokens.FindKeyword(value)
-			return tokens.Token{Type: identifierType, Literal: value}
+			return createToken(tokens.Identifier, l)
 		} else {
 			token = tokens.Token{
 				Type:    tokens.EOF,
@@ -80,6 +81,11 @@ func (l *Lexer) NextToken() tokens.Token {
 
 func (l *Lexer) skipWhitespace() {
 	for l.character == ' ' || l.character == '\t' || l.character == '\n' || l.character == '\r' {
+		if l.character == '\n' || l.character == '\r' {
+			l.line++
+			l.curColumn = 0
+		}
+
 		l.NextCharacter()
 	}
 }
@@ -120,4 +126,18 @@ func isCharacter(input rune) bool {
 	}
 
 	return false
+}
+
+func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
+	literal := string(l.character)
+
+	if isNumber(l.character) {
+		literal = l.readNumber()
+	} else if isCharacter(l.character) {
+		literal = l.readIdentifier()
+		token = tokens.FindKeyword(literal)
+	}
+
+	fmt.Println(l.curColumn)
+	return tokens.Token{Type: token, Literal: literal, Line: l.line, Column: l.curColumn}
 }

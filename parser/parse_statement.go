@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"git.kanersps.pw/loop/models/ast"
 	"git.kanersps.pw/loop/models/tokens"
 	"git.kanersps.pw/loop/parser/precedence"
@@ -29,7 +30,7 @@ func (p *Parser) parseExpression(pre int) ast.Expression {
 	prefixFn := p.prefixParsers[p.CurrentToken.Type]
 
 	if prefixFn == nil {
-		// TODO: add parser error
+		p.AddError(fmt.Sprintf("no prefix parser. expected=prefixParseFn. got=nil"))
 		return nil
 	}
 

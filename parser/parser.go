@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"git.kanersps.pw/loop/lexer"
 	"git.kanersps.pw/loop/models/ast"
 	"git.kanersps.pw/loop/models/tokens"
@@ -17,6 +18,8 @@ type Parser struct {
 
 	prefixParsers map[tokens.TokenType]prefixParseFunction
 	suffixParsers map[tokens.TokenType]suffixParseFunction
+
+	Errors []string
 }
 
 func Create(l *lexer.Lexer) *Parser {
@@ -79,8 +82,12 @@ func (p *Parser) peekTokenIs(tokenType tokens.TokenType) bool {
 }
 
 // Peek precedence
-
 func (p *Parser) NextToken() {
 	p.CurrentToken = p.PeekToken
 	p.PeekToken = p.lexer.NextToken()
+}
+
+// Add an error
+func (p *Parser) AddError(err string) {
+	p.Errors = append(p.Errors, fmt.Sprintf("ParserException at %d,%d: %s", p.CurrentToken.Line, p.CurrentToken.Column, err))
 }

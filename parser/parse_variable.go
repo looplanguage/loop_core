@@ -10,21 +10,19 @@ import (
 func (p *Parser) parseVariable() ast.Statement {
 	variable := &ast.VariableDeclaration{Token: p.CurrentToken}
 
-	// Token was (VariableDeclaration) and becomes (Identifier)
 	p.NextToken()
 
 	if p.CurrentToken.Type != tokens.Identifier {
-		fmt.Println("NIL TOKEN")
+		p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", "identifier", p.CurrentToken.Name()))
 		return nil
 	}
 
 	name := p.CurrentToken
 
-	// Token was (Identifier) and becomes (Assign)
 	p.NextToken()
 
 	if p.CurrentToken.Type != tokens.Assign {
-		fmt.Println("NOT ASSIGN")
+		p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", "=", p.CurrentToken.Name()))
 		return nil
 	}
 

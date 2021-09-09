@@ -1,6 +1,7 @@
 package evaluator
 
 import (
+	"fmt"
 	"git.kanersps.pw/loop/models/ast"
 	"git.kanersps.pw/loop/models/environment"
 	"git.kanersps.pw/loop/models/object"
@@ -14,5 +15,5 @@ func evalIdentifier(identifier *ast.Identifier, env environment.Environment) obj
 	}
 
 	// TODO: return error
-	return &object.Integer{Value: 300}
+	return &object.Error{Message: fmt.Sprintf("Identifier %q not defined", identifier.Value)}
 }

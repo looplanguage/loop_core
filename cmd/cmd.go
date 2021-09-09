@@ -33,8 +33,14 @@ func Execute() {
 
 		program := p.Parse()
 
-		evaluated := evaluator.Eval(program, env)
+		if len(p.Errors) > 0 {
+			for _, err := range p.Errors {
+				fmt.Println(err)
+			}
+		} else {
+			evaluated := evaluator.Eval(program, env)
 
-		fmt.Println(evaluated.Inspect())
+			fmt.Println(evaluated.Inspect())
+		}
 	}
 }
