@@ -2,6 +2,7 @@ package evaluator
 
 import (
 	"fmt"
+	"git.kanersps.pw/loop/models/ast"
 	"git.kanersps.pw/loop/models/object"
 )
 
@@ -30,4 +31,35 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 	}
 
 	return &object.Error{Message: fmt.Sprintf("invalid operator. got=%q", operator)}
+}
+
+func evalConditionalStatement(condition ast.Expression, ElseCondition ast.BlockStatement, ElseStatement *ast.ConditionalStatement, Body ast.BlockStatement, env *object.Environment) object.Object {
+	run := Eval(condition, env)
+
+	if run, ok := run.(*object.Boolean); ok {
+
+		if run.Value {
+			var lastEval object.Object
+
+			for _, stmt := range Body.Statements {
+				lastEval = Eval(stmt, env)
+			}
+
+			return lastEval
+		} else {
+			if ElseStatement != nil {
+				return evalConditionalStatement(ElseStatement.Condition, ElseStatement.ElseCondition, ElseStatement.ElseStatement, ElseStatement.Body, env)
+			} else if len(ElseCondition.Statements) > 0 {
+				var lastEval object.Object
+
+				for _, stmt := range ElseCondition.Statements {
+					lastEval = Eval(stmt, env)
+				}
+
+				return lastEval
+			}
+		}
+	}
+
+	return &object.Error{Message: fmt.Sprintf("condition is of invalid type. expected=%q. got=%q", "BOOLEAN", run.Type())}
 }

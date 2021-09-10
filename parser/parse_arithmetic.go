@@ -56,12 +56,8 @@ func (p *Parser) parseConditionalStatement() ast.Expression {
 				return nil
 			}
 		} else if p.CurrentToken.Type == tokens.LeftBrace {
+			p.NextToken()
 			token.ElseCondition.Statements = p.parseBlockStatement()
-		}
-
-		if p.CurrentToken.Type != tokens.RightBrace {
-			p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", "}", p.CurrentToken.Literal))
-			return nil
 		}
 
 		p.NextToken()

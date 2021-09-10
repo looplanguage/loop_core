@@ -50,6 +50,8 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		}
 
 		return val
+	case *ast.ConditionalStatement:
+		return evalConditionalStatement(node.Condition, node.ElseCondition, node.ElseStatement, node.Body, env)
 	case *ast.Boolean:
 		return boolToObject(node.Value)
 	}

@@ -12,7 +12,7 @@ var test = 1;
 test;
 true; false;
 
-if(true) {} else if(true) {} else if(true) {}
+if(true) {} else if(true) {} else if(true) {} else {}
 `
 
 	l := lexer.Create(input)
