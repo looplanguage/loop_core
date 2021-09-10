@@ -45,6 +45,10 @@ func Create(l *lexer.Lexer) *Parser {
 	parser.registerSuffixParser(tokens.Minus, parser.parseSuffixExpression)
 	parser.registerSuffixParser(tokens.LeftParenthesis, parser.parseCallExpression)
 	parser.registerSuffixParser(tokens.Equals, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.GreaterThan, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.LesserThan, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.GreaterEqualsThan, parser.parseSuffixExpression)
+	parser.registerSuffixParser(tokens.LesserEqualsThan, parser.parseSuffixExpression)
 
 	// Call twice to fill CurrentToken & PeekToken
 	parser.NextToken()

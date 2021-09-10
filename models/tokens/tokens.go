@@ -44,6 +44,10 @@ var translator = map[TokenType]string{
 	Equals:              "==",
 	If:                  "if",
 	Else:                "else",
+	GreaterThan:         ">",
+	LesserThan:          "<",
+	GreaterEqualsThan:   ">=",
+	LesserEqualsThan:    "<=",
 }
 
 const (
@@ -68,6 +72,10 @@ const (
 	Equals
 	If
 	Else
+	GreaterThan
+	LesserThan
+	GreaterEqualsThan
+	LesserEqualsThan
 )
 
 func FindKeyword(keyword string) TokenType {

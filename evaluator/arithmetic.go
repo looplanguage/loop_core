@@ -18,6 +18,14 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 				return &object.Integer{Value: left.Value / right.Value}
 			case "-":
 				return &object.Integer{Value: left.Value - right.Value}
+			case ">":
+				return &object.Boolean{Value: left.Value > right.Value}
+			case "<":
+				return &object.Boolean{Value: left.Value < right.Value}
+			case ">=":
+				return &object.Boolean{Value: left.Value >= right.Value}
+			case "<=":
+				return &object.Boolean{Value: left.Value <= right.Value}
 			}
 		}
 	}

@@ -68,6 +68,10 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = createToken(tokens.LeftBrace, l)
 	case '}':
 		token = createToken(tokens.RightBrace, l)
+	case '>':
+		token = createToken(tokens.GreaterThan, l)
+	case '<':
+		token = createToken(tokens.LesserThan, l)
 	case ',':
 		token = createToken(tokens.Comma, l)
 	default:
@@ -147,10 +151,23 @@ func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
 		literal = l.readIdentifier()
 		token = tokens.FindKeyword(literal)
 	} else {
-		if l.character == '=' {
+		switch l.character {
+		case '=':
 			if l.PeekCharacter() == '=' {
 				token = tokens.Equals
 				literal = "=="
+				l.NextCharacter()
+			}
+		case '>':
+			if l.PeekCharacter() == '=' {
+				token = tokens.Equals
+				literal = ">="
+				l.NextCharacter()
+			}
+		case '<':
+			if l.PeekCharacter() == '=' {
+				token = tokens.Equals
+				literal = "<="
 				l.NextCharacter()
 			}
 		}
