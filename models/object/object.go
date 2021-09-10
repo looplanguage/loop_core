@@ -6,6 +6,7 @@ const (
 	INTEGER  = "INTEGER"
 	ERROR    = "ERROR"
 	FUNCTION = "FUNCTION"
+	BOOLEAN  = "BOOLEAN"
 )
 
 type Object interface {

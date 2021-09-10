@@ -11,6 +11,8 @@ func TestLexer_NextToken(t *testing.T) {
 var test = 40;
 
 var fn = fun(a, b) {}
+
+true; false;
 `
 
 	expected := []tokens.Token{
@@ -39,6 +41,12 @@ var fn = fun(a, b) {}
 		{Type: tokens.RightParenthesis, Literal: ")"},
 		{Type: tokens.LeftBrace, Literal: "{"},
 		{Type: tokens.RightBrace, Literal: "}"},
+
+		// Booleans
+		{Type: tokens.True, Literal: "true"},
+		{Type: tokens.Semicolon, Literal: ";"},
+		{Type: tokens.False, Literal: "false"},
+		{Type: tokens.Semicolon, Literal: ";"},
 
 		// End of file
 		{Type: tokens.EOF, Literal: ""},

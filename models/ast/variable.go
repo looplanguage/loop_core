@@ -28,3 +28,14 @@ func (vd *VariableDeclaration) TokenLiteral() string { return vd.Token.Name() }
 func (vd *VariableDeclaration) String() string {
 	return fmt.Sprintf("var %v = %v", vd.Identifier.Value, vd.Value.String())
 }
+
+type Boolean struct {
+	Token tokens.Token
+	Value bool
+}
+
+func (b *Boolean) expressionNode()      {}
+func (b *Boolean) TokenLiteral() string { return b.Token.Name() }
+func (b *Boolean) String() string {
+	return fmt.Sprintf("%t", b.Value)
+}

@@ -5,6 +5,11 @@ import (
 	"git.kanersps.pw/loop/models/object"
 )
 
+var (
+	TRUE  = object.Boolean{Value: true}
+	FALSE = object.Boolean{Value: false}
+)
+
 func Eval(node ast.Node, env *object.Environment) object.Object {
 	switch node := node.(type) {
 	case *ast.Program:
@@ -45,6 +50,8 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		}
 
 		return val
+	case *ast.Boolean:
+		return boolToObject(node.Value)
 	}
 
 	return nil
@@ -72,4 +79,12 @@ func evalProgram(statements []ast.Statement, env *object.Environment) object.Obj
 	}
 
 	return result
+}
+
+func boolToObject(b bool) *object.Boolean {
+	if b {
+		return &TRUE
+	}
+
+	return &FALSE
 }
