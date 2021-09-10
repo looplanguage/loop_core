@@ -43,6 +43,7 @@ func Create(l *lexer.Lexer) *Parser {
 	parser.registerSuffixParser(tokens.Slash, parser.parseSuffixExpression)
 	parser.registerSuffixParser(tokens.Minus, parser.parseSuffixExpression)
 	parser.registerSuffixParser(tokens.LeftParenthesis, parser.parseCallExpression)
+	parser.registerSuffixParser(tokens.Equals, parser.parseSuffixExpression)
 
 	// Call twice to fill CurrentToken & PeekToken
 	parser.NextToken()

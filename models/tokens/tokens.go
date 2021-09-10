@@ -39,6 +39,7 @@ var translator = map[TokenType]string{
 	Comma:               ",",
 	True:                "true",
 	False:               "false",
+	Equals:              "==",
 }
 
 const (
@@ -60,6 +61,7 @@ const (
 	Comma
 	True
 	False
+	Equals
 )
 
 func FindKeyword(keyword string) TokenType {

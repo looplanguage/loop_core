@@ -18,6 +18,13 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 		return &object.Integer{Value: leftValue.Value / rightValue.Value}
 	case "-":
 		return &object.Integer{Value: leftValue.Value - rightValue.Value}
+	case "==":
+
+		if leftValue.Value == rightValue.Value {
+			return &TRUE
+		}
+
+		return &FALSE
 	}
 
 	return &object.Error{Message: fmt.Sprintf("invalid operator. got=%q", operator)}

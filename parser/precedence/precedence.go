@@ -18,4 +18,5 @@ var Precedences = map[tokens.TokenType]int{
 	tokens.Asterisk:        PRODUCT,
 	tokens.Slash:           PRODUCT,
 	tokens.LeftParenthesis: CALL,
+	tokens.Equals:          EQUALS,
 }

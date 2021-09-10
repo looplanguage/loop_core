@@ -34,8 +34,12 @@ func (l *Lexer) NextCharacter() {
 	l.peekPosition++
 }
 
-func (l *Lexer) PeekCharacter() {
+func (l *Lexer) PeekCharacter() rune {
+	if l.peekPosition != 0 {
+		return rune(l.input[l.peekPosition])
+	}
 
+	return 0
 }
 
 func (l *Lexer) NextToken() tokens.Token {
@@ -142,6 +146,14 @@ func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
 	} else if isCharacter(l.character) {
 		literal = l.readIdentifier()
 		token = tokens.FindKeyword(literal)
+	} else {
+		if l.character == '=' {
+			if l.PeekCharacter() == '=' {
+				token = tokens.Equals
+				literal = "=="
+				l.NextCharacter()
+			}
+		}
 	}
 
 	return tokens.Token{Type: token, Literal: literal, Line: l.line, Column: column - 1}

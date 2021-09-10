@@ -13,6 +13,8 @@ var test = 40;
 var fn = fun(a, b) {}
 
 true; false;
+
+1 == 1;
 `
 
 	expected := []tokens.Token{
@@ -46,6 +48,12 @@ true; false;
 		{Type: tokens.True, Literal: "true"},
 		{Type: tokens.Semicolon, Literal: ";"},
 		{Type: tokens.False, Literal: "false"},
+		{Type: tokens.Semicolon, Literal: ";"},
+
+		// Equals operator
+		{Type: tokens.Integer, Literal: "1"},
+		{Type: tokens.Equals, Literal: "=="},
+		{Type: tokens.Integer, Literal: "1"},
 		{Type: tokens.Semicolon, Literal: ";"},
 
 		// End of file
