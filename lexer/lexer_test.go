@@ -15,6 +15,8 @@ var fn = fun(a, b) {}
 true; false;
 
 1 == 1;
+
+if(true) {} else {}
 `
 
 	expected := []tokens.Token{
@@ -55,6 +57,17 @@ true; false;
 		{Type: tokens.Equals, Literal: "=="},
 		{Type: tokens.Integer, Literal: "1"},
 		{Type: tokens.Semicolon, Literal: ";"},
+
+		// If statement
+		{Type: tokens.If, Literal: "if"},
+		{Type: tokens.LeftParenthesis, Literal: "("},
+		{Type: tokens.True, Literal: "true"},
+		{Type: tokens.RightParenthesis, Literal: ")"},
+		{Type: tokens.LeftBrace, Literal: "{"},
+		{Type: tokens.RightBrace, Literal: "}"},
+		{Type: tokens.Else, Literal: "else"},
+		{Type: tokens.LeftBrace, Literal: "{"},
+		{Type: tokens.RightBrace, Literal: "}"},
 
 		// End of file
 		{Type: tokens.EOF, Literal: ""},

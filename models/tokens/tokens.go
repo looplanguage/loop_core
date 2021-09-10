@@ -14,6 +14,8 @@ var keywords = map[string]TokenType{
 	"fun":   Func,
 	"true":  True,
 	"false": False,
+	"if":    If,
+	"else":  Else,
 }
 
 func (t *Token) Name() string {
@@ -40,6 +42,8 @@ var translator = map[TokenType]string{
 	True:                "true",
 	False:               "false",
 	Equals:              "==",
+	If:                  "if",
+	Else:                "else",
 }
 
 const (
@@ -62,6 +66,8 @@ const (
 	True
 	False
 	Equals
+	If
+	Else
 )
 
 func FindKeyword(keyword string) TokenType {
