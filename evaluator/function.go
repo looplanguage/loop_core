@@ -6,9 +6,9 @@ import (
 	"git.kanersps.pw/loop/models/object"
 )
 
-func evalFunction(block ast.BlockStatement, env *object.Environment) object.Object {
+func evalFunction(block ast.BlockStatement, args []*ast.Identifier, env *object.Environment) object.Object {
 	obj := &object.Function{
-		Parameters:  nil,
+		Parameters:  args,
 		Value:       &block,
 		Environment: object.CreateEnclosedEnvironment(env),
 	}

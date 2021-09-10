@@ -18,7 +18,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.Identifier:
 		return evalIdentifier(node, env)
 	case *ast.Function:
-		return evalFunction(node.Body, env)
+		return evalFunction(node.Body, node.Parameters, env)
 	case *ast.CallExpression:
 		function := Eval(node.Function, env)
 		if function.Type() == object.ERROR {

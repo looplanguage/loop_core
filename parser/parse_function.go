@@ -8,33 +8,14 @@ import (
 )
 
 func (p *Parser) parseCallExpression(fn ast.Expression) ast.Expression {
+	params := p.parseCallArguments()
+
 	return &ast.CallExpression{
 		Token:      p.CurrentToken,
 		Function:   fn,
-		Parameters: p.parseCallArguments(),
+		Parameters: params,
 	}
 }
-
-/*
-func (p *Parser) parseCallArguments() []ast.Expression {
-	args := []ast.Expression{}
-	if p.peekTokenIs(tokens.RightParentheses) {
-		p.ExtractToken()
-		return args
-	}
-	p.ExtractToken()
-	args = append(args, p.parseExpression(LOWEST))
-	for p.peekTokenIs(tokens.Comma) {
-		p.ExtractToken()
-		p.ExtractToken()
-		args = append(args, p.parseExpression(LOWEST))
-	}
-	if !p.expectPeek(tokens.RightParentheses) {
-		return nil
-	}
-	return args
-}
-*/
 
 func (p *Parser) parseCallArguments() []ast.Expression {
 	var arguments []ast.Expression
@@ -80,12 +61,7 @@ func (p *Parser) parseFunction() ast.Expression {
 	// Parse arguments as identifiers
 
 	var arguments []*ast.Identifier
-	for p.CurrentToken.Type == tokens.Identifier || p.CurrentToken.Type == tokens.Comma {
-		fmt.Println("?")
-		if p.CurrentToken.Type == tokens.Comma {
-			continue
-		}
-
+	for p.CurrentToken.Type == tokens.Identifier {
 		identifier := &ast.Identifier{
 			Token: p.CurrentToken,
 			Value: p.CurrentToken.Literal,
@@ -93,6 +69,10 @@ func (p *Parser) parseFunction() ast.Expression {
 
 		arguments = append(arguments, identifier)
 		p.NextToken()
+
+		if p.CurrentToken.Type != tokens.RightParenthesis {
+			p.NextToken()
+		}
 	}
 
 	token.Parameters = arguments
@@ -127,16 +107,4 @@ func (p *Parser) parseFunction() ast.Expression {
 	}
 
 	return token
-}
-
-func parseBlock() ast.Expression {
-	return &ast.IntegerLiteral{
-		Token: tokens.Token{
-			Type:    tokens.Integer,
-			Literal: "",
-			Line:    0,
-			Column:  0,
-		},
-		Value: 0,
-	}
 }
