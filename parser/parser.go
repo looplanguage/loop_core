@@ -36,6 +36,7 @@ func Create(l *lexer.Lexer) *Parser {
 	parser.registerPrefixParser(tokens.Func, parser.parseFunction)
 	parser.registerPrefixParser(tokens.True, parser.parseBoolean)
 	parser.registerPrefixParser(tokens.False, parser.parseBoolean)
+	parser.registerPrefixParser(tokens.If, parser.parseConditionalStatement)
 
 	// Register suffix parsers
 	parser.registerSuffixParser(tokens.Plus, parser.parseSuffixExpression)

@@ -96,15 +96,23 @@ func (p *Parser) parseFunction() ast.Expression {
 
 	p.NextToken()
 
+	token.Body.Statements = p.parseBlockStatement()
+
+	return token
+}
+
+func (p *Parser) parseBlockStatement() []ast.Statement {
+	var statements []ast.Statement
+
 	for p.CurrentToken.Type != tokens.RightBrace && p.CurrentToken.Type != tokens.EOF {
 		stmt := p.parseStatement()
 
 		if stmt != nil {
-			token.Body.Statements = append(token.Body.Statements, stmt)
+			statements = append(statements, stmt)
 		}
 
 		p.NextToken()
 	}
 
-	return token
+	return statements
 }

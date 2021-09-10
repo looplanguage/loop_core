@@ -11,6 +11,8 @@ func TestParser_NextToken(t *testing.T) {
 var test = 1;
 test;
 true; false;
+
+if(true) {} else if(true) {} else if(true) {}
 `
 
 	l := lexer.Create(input)
@@ -18,7 +20,7 @@ true; false;
 
 	program := p.Parse()
 
-	if len(program.Statements) != 5 {
-		t.Fatalf("len(program.Statements) is not correct. expected=%d. got=%d", 2, len(program.Statements))
+	if len(program.Statements) != 6 {
+		t.Fatalf("len(program.Statements) is not correct. expected=%d. got=%d", 6, len(program.Statements))
 	}
 }
