@@ -6,21 +6,23 @@ import (
 )
 
 func evalSuffixExpression(left object.Object, right object.Object, operator string) object.Object {
-	leftValue := left.(*object.Integer)
-	rightValue := right.(*object.Integer)
+	if left, ok := left.(*object.Integer); ok {
+		if right, ok := right.(*object.Integer); ok {
+			switch operator {
+			case "+":
+				return &object.Integer{Value: left.Value + right.Value}
+			case "*":
+				return &object.Integer{Value: left.Value * right.Value}
+			case "/":
+				return &object.Integer{Value: left.Value / right.Value}
+			case "-":
+				return &object.Integer{Value: left.Value - right.Value}
+			}
+		}
+	}
 
-	switch operator {
-	case "+":
-		return &object.Integer{Value: leftValue.Value + rightValue.Value}
-	case "*":
-		return &object.Integer{Value: leftValue.Value * rightValue.Value}
-	case "/":
-		return &object.Integer{Value: leftValue.Value / rightValue.Value}
-	case "-":
-		return &object.Integer{Value: leftValue.Value - rightValue.Value}
-	case "==":
-
-		if leftValue.Value == rightValue.Value {
+	if operator == "==" {
+		if left.Type() == right.Type() && left.Inspect() == right.Inspect() {
 			return &TRUE
 		}
 
