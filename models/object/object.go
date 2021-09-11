@@ -8,6 +8,7 @@ const (
 	FUNCTION = "FUNCTION"
 	BOOLEAN  = "BOOLEAN"
 	ARRAY    = "ARRAY"
+	RETURN   = "RETURN"
 )
 
 type Object interface {

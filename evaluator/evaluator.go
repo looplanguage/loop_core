@@ -47,6 +47,10 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 
 		for _, exp := range node.Statements {
 			val = Eval(exp, env)
+
+			if ret, earlyReturn := val.(*object.Return); earlyReturn {
+				return Eval(ret.Value, env)
+			}
 		}
 
 		return val
@@ -58,6 +62,8 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return evalArray(node, env)
 	case *ast.IndexExpression:
 		return evalIndexExpression(node.Value, node.Index, env)
+	case *ast.Return:
+		return evalReturn(node.Value)
 	}
 
 	return nil

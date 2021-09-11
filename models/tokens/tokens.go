@@ -10,12 +10,13 @@ type Token struct {
 }
 
 var keywords = map[string]TokenType{
-	"var":   VariableDeclaration,
-	"fun":   Func,
-	"true":  True,
-	"false": False,
-	"if":    If,
-	"else":  Else,
+	"var":    VariableDeclaration,
+	"fun":    Func,
+	"true":   True,
+	"false":  False,
+	"if":     If,
+	"else":   Else,
+	"return": Return,
 }
 
 func (t *Token) Name() string {
@@ -50,6 +51,7 @@ var translator = map[TokenType]string{
 	LesserEqualsThan:    "<=",
 	LeftBracket:         "[",
 	RightBracket:        "]",
+	Return:              "return",
 }
 
 const (
@@ -80,6 +82,7 @@ const (
 	LesserEqualsThan
 	LeftBracket
 	RightBracket
+	Return
 )
 
 func FindKeyword(keyword string) TokenType {

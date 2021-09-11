@@ -9,6 +9,9 @@ import (
 
 func (p *Parser) parseStatement() ast.Statement {
 	switch p.CurrentToken.Type {
+
+	case tokens.Return:
+		return p.parseReturn()
 	case tokens.VariableDeclaration:
 		return p.parseVariable()
 	default:
