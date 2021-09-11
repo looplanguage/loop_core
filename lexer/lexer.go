@@ -74,6 +74,10 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = createToken(tokens.LesserThan, l)
 	case ',':
 		token = createToken(tokens.Comma, l)
+	case '[':
+		token = createToken(tokens.LeftBracket, l)
+	case ']':
+		token = createToken(tokens.RightBracket, l)
 	default:
 		if isNumber(l.character) {
 			return createToken(tokens.Integer, l)

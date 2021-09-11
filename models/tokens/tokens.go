@@ -48,6 +48,8 @@ var translator = map[TokenType]string{
 	LesserThan:          "<",
 	GreaterEqualsThan:   ">=",
 	LesserEqualsThan:    "<=",
+	LeftBracket:         "[",
+	RightBracket:        "]",
 }
 
 const (
@@ -76,6 +78,8 @@ const (
 	LesserThan
 	GreaterEqualsThan
 	LesserEqualsThan
+	LeftBracket
+	RightBracket
 )
 
 func FindKeyword(keyword string) TokenType {

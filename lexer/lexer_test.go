@@ -17,6 +17,8 @@ true; false;
 1 == 1;
 
 if(true) {} else {}
+
+[1, 2, true]
 `
 
 	expected := []tokens.Token{
@@ -68,6 +70,15 @@ if(true) {} else {}
 		{Type: tokens.Else, Literal: "else"},
 		{Type: tokens.LeftBrace, Literal: "{"},
 		{Type: tokens.RightBrace, Literal: "}"},
+
+		// Array
+		{Type: tokens.LeftBracket, Literal: "["},
+		{Type: tokens.Integer, Literal: "1"},
+		{Type: tokens.Comma, Literal: ","},
+		{Type: tokens.Integer, Literal: "2"},
+		{Type: tokens.Comma, Literal: ","},
+		{Type: tokens.True, Literal: "true"},
+		{Type: tokens.RightBracket, Literal: "]"},
 
 		// End of file
 		{Type: tokens.EOF, Literal: ""},
