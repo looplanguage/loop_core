@@ -20,4 +20,38 @@ var BuiltinFunctions = map[string]*object.BuiltinFunction{
 			return &object.Error{Message: fmt.Sprintf("wrong type as argument for \"len\". got=%T", args[0])}
 		},
 	},
+	"print": {
+		Function: func(args []object.Object) object.Object {
+			return Print(args, "")
+		},
+	},
+	"println": {
+		Function: func(args []object.Object) object.Object {
+			return Print(args, "\n")
+		},
+	},
+}
+
+func Print(args []object.Object, suffix string) object.Object {
+	values := ""
+
+	for _, arg := range args {
+		if str, ok := arg.(*object.String); ok {
+			value := fmt.Sprintf("%s", str.Value)
+
+			values += value
+			continue
+		}
+
+		if integer, ok := arg.(*object.Integer); ok {
+			value := fmt.Sprintf("%d", integer.Value)
+
+			values += value
+		}
+	}
+
+	values += suffix
+	fmt.Print(values)
+
+	return &object.String{Value: values}
 }
