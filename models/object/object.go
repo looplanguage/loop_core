@@ -7,6 +7,7 @@ const (
 	ERROR    = "ERROR"
 	FUNCTION = "FUNCTION"
 	BOOLEAN  = "BOOLEAN"
+	ARRAY    = "ARRAY"
 )
 
 type Object interface {
