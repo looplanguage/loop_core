@@ -27,17 +27,14 @@ func (p *Parser) parseCallArguments() []ast.Expression {
 
 	p.NextToken()
 
-	arguments = append(arguments, p.parseExpression(precedence.LOWEST))
+	exp := p.parseExpression(precedence.LOWEST)
+	arguments = append(arguments, exp)
 
 	for p.PeekToken.Type == tokens.Comma {
 		p.NextToken() // Go to comma
 		p.NextToken() // Go to next arg
 
 		arguments = append(arguments, p.parseExpression(precedence.LOWEST))
-	}
-
-	if p.PeekToken.Type != tokens.RightParenthesis {
-		return nil
 	}
 
 	p.NextToken()

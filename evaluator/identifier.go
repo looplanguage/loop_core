@@ -13,5 +13,9 @@ func evalIdentifier(identifier *ast.Identifier, env *object.Environment) object.
 		return value
 	}
 
+	if builtin, ok := BuiltinFunctions[identifier.Value]; ok {
+		return builtin
+	}
+
 	return &object.Error{Message: fmt.Sprintf("identifier %q not defined", identifier.Value), Line: identifier.Token.Line, Column: identifier.Token.Column}
 }

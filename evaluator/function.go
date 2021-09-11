@@ -23,6 +23,8 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 		evaluated := Eval(fn.Value, env)
 
 		return evaluated
+	case *object.BuiltinFunction:
+		return fn.Function(args)
 	}
 
 	return &object.Error{
