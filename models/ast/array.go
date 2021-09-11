@@ -6,6 +6,18 @@ import (
 	"strings"
 )
 
+type IndexExpression struct {
+	Token tokens.Token
+	Index Expression
+	Value Expression
+}
+
+func (ie *IndexExpression) expressionNode()      {}
+func (ie *IndexExpression) TokenLiteral() string { return ie.Token.Literal }
+func (ie *IndexExpression) String() string {
+	return fmt.Sprintf("%s[%s]", ie.Value.TokenLiteral(), ie.Index.TokenLiteral())
+}
+
 type Array struct {
 	Token    tokens.Token
 	Elements []Expression

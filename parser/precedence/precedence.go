@@ -10,6 +10,7 @@ const (
 	PRODUCT
 	PREFIX
 	CALL
+	INDEX
 )
 
 var Precedences = map[tokens.TokenType]int{
@@ -23,4 +24,5 @@ var Precedences = map[tokens.TokenType]int{
 	tokens.LesserThan:        LESSGREATER,
 	tokens.GreaterThan:       LESSGREATER,
 	tokens.GreaterEqualsThan: LESSGREATER,
+	tokens.LeftBracket:       INDEX,
 }
