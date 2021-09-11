@@ -12,7 +12,7 @@ func (p *Parser) parseArray() ast.Expression {
 
 	p.NextToken()
 
-	for p.CurrentToken.Type != tokens.RightBracket {
+	for p.CurrentToken.Type != tokens.RightBracket && p.CurrentToken.Type != tokens.EOF {
 		if p.CurrentToken.Type == tokens.Comma {
 			p.NextToken()
 		}
