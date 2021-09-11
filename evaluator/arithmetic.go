@@ -38,6 +38,18 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 		return &FALSE
 	}
 
+	if operator == "+" {
+		if left, ok := left.(*object.String); ok {
+			if right, ok := right.(*object.String); ok {
+				return &object.String{Value: fmt.Sprintf("%s%s", left.Value, right.Value)}
+			}
+
+			if right, ok := right.(*object.Integer); ok {
+				return &object.String{Value: fmt.Sprintf("%s%d", left.Value, right.Value)}
+			}
+		}
+	}
+
 	return &object.Error{Message: fmt.Sprintf("invalid operator. got=%q", operator)}
 }
 
