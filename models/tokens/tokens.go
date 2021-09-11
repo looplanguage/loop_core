@@ -52,6 +52,7 @@ var translator = map[TokenType]string{
 	LeftBracket:         "[",
 	RightBracket:        "]",
 	Return:              "return",
+	String:              "string",
 }
 
 const (
@@ -83,6 +84,7 @@ const (
 	LeftBracket
 	RightBracket
 	Return
+	String
 )
 
 func FindKeyword(keyword string) TokenType {

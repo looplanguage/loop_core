@@ -64,6 +64,8 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return evalIndexExpression(node.Value, node.Index, env)
 	case *ast.Return:
 		return evalReturn(node.Value)
+	case *ast.String:
+		return evalString(node.Value)
 	}
 
 	return nil

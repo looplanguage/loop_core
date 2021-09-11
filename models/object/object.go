@@ -10,6 +10,7 @@ const (
 	ARRAY    = "ARRAY"
 	RETURN   = "RETURN"
 	BUILTIN  = "BUILTIN"
+	STRING   = "STRING"
 )
 
 type Object interface {

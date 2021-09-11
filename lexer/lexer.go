@@ -78,6 +78,8 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = createToken(tokens.LeftBracket, l)
 	case ']':
 		token = createToken(tokens.RightBracket, l)
+	case '"':
+		token = createToken(tokens.String, l)
 	default:
 		if isNumber(l.character) {
 			return createToken(tokens.Integer, l)
@@ -127,6 +129,21 @@ func (l *Lexer) readIdentifier() string {
 	return l.input[position:l.curPosition]
 }
 
+func (l *Lexer) readString() string {
+	l.NextCharacter()
+
+	value := ""
+
+	for l.character != '"' {
+		value += string(l.character)
+		l.NextCharacter()
+	}
+
+	l.NextCharacter()
+
+	return value
+}
+
 func isNumber(input rune) bool {
 	_, ok := strconv.Atoi(string(input))
 
@@ -174,6 +191,8 @@ func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
 				literal = "<="
 				l.NextCharacter()
 			}
+		case '"':
+			literal = l.readString()
 		}
 	}
 
