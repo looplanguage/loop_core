@@ -64,7 +64,7 @@ func testEvaluate(input string) object.Object {
 
 	program := p.Parse()
 
-	env := *object.CreateEnvironment()
+	env := object.CreateEnvironment()
 
 	return Eval(program, env)
 }

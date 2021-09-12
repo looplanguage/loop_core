@@ -53,5 +53,5 @@ func Print(args []object.Object, suffix string) object.Object {
 	values += suffix
 	fmt.Print(values)
 
-	return &object.String{Value: values}
+	return &object.None{}
 }

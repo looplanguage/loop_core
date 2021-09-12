@@ -6,5 +6,13 @@ import (
 )
 
 func evalVariableDeclaration(key *ast.Identifier, value ast.Expression, env *object.Environment) object.Object {
-	return env.Set(key.Value, Eval(value, env))
+	v := Eval(value, env)
+
+	if _, ok := v.(*object.None); ok {
+		return &object.Error{
+			Message: "unable to assign to NONE",
+		}
+	}
+
+	return env.Set(key.Value, v)
 }

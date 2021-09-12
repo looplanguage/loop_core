@@ -11,6 +11,7 @@ const (
 	RETURN   = "RETURN"
 	BUILTIN  = "BUILTIN"
 	STRING   = "STRING"
+	NONE     = "NONE"
 )
 
 type Object interface {

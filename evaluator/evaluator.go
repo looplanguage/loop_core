@@ -49,7 +49,9 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 			val = Eval(exp, env)
 
 			if ret, earlyReturn := val.(*object.Return); earlyReturn {
-				return Eval(ret.Value, env)
+				value := Eval(ret.Value, env)
+
+				return value
 			}
 		}
 
