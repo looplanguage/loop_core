@@ -68,6 +68,8 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return evalReturn(node.Value)
 	case *ast.String:
 		return evalString(node.Value)
+	case *ast.While:
+		return evalWhile(node.Condition, node.Block, env)
 	}
 
 	return nil

@@ -6,6 +6,6 @@ var double = fun(x) {
 
 len(array)
 
-print(123)
+println(123)
 
 double(50)
