@@ -35,7 +35,11 @@ func Execute() {
 		} else {
 			evaluated := evaluator.Eval(program, env)
 
-			fmt.Println(evaluated.Inspect())
+			_, none := evaluated.(*object.None)
+
+			if !none {
+				fmt.Println(evaluated.Inspect())
+			}
 		}
 
 		os.Exit(0)
@@ -70,7 +74,11 @@ func Execute() {
 		} else {
 			evaluated := evaluator.Eval(program, env)
 
-			fmt.Println(evaluated.Inspect())
+			_, none := evaluated.(*object.None)
+
+			if !none {
+				fmt.Println(evaluated.Inspect())
+			}
 		}
 	}
 }

@@ -14,5 +14,11 @@ func evalVariableDeclaration(key *ast.Identifier, value ast.Expression, env *obj
 		}
 	}
 
-	return env.Set(key.Value, v)
+	set := env.Set(key.Value, v)
+
+	if _, ok := v.(*object.Function); ok {
+		return &object.None{}
+	}
+
+	return set
 }

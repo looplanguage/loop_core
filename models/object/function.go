@@ -11,4 +11,4 @@ type Function struct {
 }
 
 func (f *Function) Type() string    { return FUNCTION }
-func (f *Function) Inspect() string { return "true" }
+func (f *Function) Inspect() string { return "undefined" }
