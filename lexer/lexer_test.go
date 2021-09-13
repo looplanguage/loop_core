@@ -19,6 +19,8 @@ true; false;
 if(true) {} else {}
 
 [1, 2, true]
+
+"Hello World!"
 `
 
 	expected := []tokens.Token{
@@ -79,6 +81,9 @@ if(true) {} else {}
 		{Type: tokens.Comma, Literal: ","},
 		{Type: tokens.True, Literal: "true"},
 		{Type: tokens.RightBracket, Literal: "]"},
+
+		// String
+		{Type: tokens.String, Literal: "Hello World!"},
 
 		// End of file
 		{Type: tokens.EOF, Literal: ""},

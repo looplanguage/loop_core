@@ -21,13 +21,13 @@ func (c *CallExpression) String() string {
 		parameters = append(parameters, p.String())
 	}
 
-	return fmt.Sprintf("%v(%v)", c.Token.Literal, strings.Join(parameters, ", "))
+	return fmt.Sprintf("%v(%v)", c.Function.String(), strings.Join(parameters, ", "))
 }
 
 type Function struct {
 	Token      tokens.Token
 	Parameters []*Identifier
-	Body       BlockStatement
+	Body       *BlockStatement
 }
 
 func (f *Function) expressionNode()      {}
@@ -44,7 +44,7 @@ func (f *Function) String() string {
 
 	value += ") { "
 
-	value += f.String()
+	value += f.Body.String()
 
 	value += " }"
 

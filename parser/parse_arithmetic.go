@@ -10,11 +10,7 @@ import (
 
 func (p *Parser) parseConditionalStatement() ast.Expression {
 	token := &ast.ConditionalStatement{
-		Token:         p.CurrentToken,
-		Condition:     nil,
-		ElseCondition: ast.BlockStatement{},
-		ElseStatement: nil,
-		Body:          ast.BlockStatement{},
+		Token: p.CurrentToken,
 	}
 
 	p.NextToken()
@@ -24,7 +20,11 @@ func (p *Parser) parseConditionalStatement() ast.Expression {
 		return nil
 	}
 
+	p.NextToken()
+
 	token.Condition = p.parseExpression(precedence.LOWEST)
+
+	p.NextToken()
 
 	if p.CurrentToken.Type != tokens.RightParenthesis {
 		p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", ")", p.CurrentToken.Literal))
@@ -40,7 +40,7 @@ func (p *Parser) parseConditionalStatement() ast.Expression {
 
 	p.NextToken()
 
-	token.Body.Statements = p.parseBlockStatement()
+	token.Body = p.parseBlockStatement()
 
 	if p.PeekToken.Type == tokens.Else {
 		p.NextToken()
@@ -57,7 +57,7 @@ func (p *Parser) parseConditionalStatement() ast.Expression {
 			}
 		} else if p.CurrentToken.Type == tokens.LeftBrace {
 			p.NextToken()
-			token.ElseCondition.Statements = p.parseBlockStatement()
+			token.ElseCondition = p.parseBlockStatement()
 		}
 
 		p.NextToken()
@@ -68,7 +68,7 @@ func (p *Parser) parseConditionalStatement() ast.Expression {
 
 func (p *Parser) parseIntegerLiteral() ast.Expression {
 
-	integer, err := strconv.Atoi(p.CurrentToken.Literal)
+	integer, err := strconv.ParseInt(p.CurrentToken.Literal, 0, 64)
 
 	if err != nil {
 		fmt.Println(err)
@@ -76,11 +76,7 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 
 	expr := &ast.IntegerLiteral{
 		Token: p.CurrentToken,
-		Value: int64(integer),
-	}
-
-	if p.peekTokenIs(tokens.Semicolon) {
-		p.NextToken()
+		Value: integer,
 	}
 
 	return expr

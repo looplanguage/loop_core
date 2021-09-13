@@ -77,6 +77,24 @@ func (p *Parser) Parse() *ast.Program {
 	return program
 }
 
+func (p *Parser) FindError(t tokens.TokenType) {
+	//expected := reflect.ValueOf(&book).Elem()
+
+	msg := fmt.Sprintf("Expected %v, got %v instead",
+		t, p.PeekToken)
+	p.Errors = append(p.Errors, msg)
+}
+
+func (p *Parser) expectPeek(t tokens.TokenType) bool {
+	if p.peekTokenIs(t) {
+		p.NextToken()
+		return true
+	} else {
+		p.FindError(t)
+		return false
+	}
+}
+
 // Register different parsers (prefix & suffix)
 func (p *Parser) registerPrefixParser(tokenType tokens.TokenType, function prefixParseFunction) {
 	p.prefixParsers[tokenType] = function

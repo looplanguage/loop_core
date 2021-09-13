@@ -130,18 +130,16 @@ func (l *Lexer) readIdentifier() string {
 }
 
 func (l *Lexer) readString() string {
-	l.NextCharacter()
-
-	value := ""
-
-	for l.character != '"' {
-		value += string(l.character)
+	position := l.curPosition + 1
+	for {
 		l.NextCharacter()
+
+		if l.character == '"' || l.character == 0 {
+			break
+		}
 	}
 
-	l.NextCharacter()
-
-	return value
+	return l.input[position:l.curPosition]
 }
 
 func isNumber(input rune) bool {

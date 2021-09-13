@@ -42,11 +42,8 @@ func (p *Parser) parseWhileLoop() ast.Expression {
 	}
 
 	p.NextToken()
-	fmt.Println(p.CurrentToken.Literal)
 
-	while.Block = &ast.BlockStatement{}
-
-	while.Block.Statements = p.parseBlockStatement()
+	while.Block = p.parseBlockStatement()
 
 	return while
 }

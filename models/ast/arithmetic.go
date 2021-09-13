@@ -30,9 +30,9 @@ func (se *SuffixExpression) String() string {
 type ConditionalStatement struct {
 	Token         tokens.Token
 	Condition     Expression
-	ElseCondition BlockStatement
+	ElseCondition *BlockStatement
 	ElseStatement *ConditionalStatement
-	Body          BlockStatement
+	Body          *BlockStatement
 }
 
 func (cs *ConditionalStatement) expressionNode()      {}
@@ -46,14 +46,16 @@ func (cs *ConditionalStatement) String() string {
 
 	value += "} "
 
-	if len(cs.ElseCondition.Statements) > 0 {
-		value += " else { "
+	if cs.ElseCondition != nil {
+		if len(cs.ElseCondition.Statements) > 0 {
+			value += " else { "
 
-		for _, stmt := range cs.ElseCondition.Statements {
-			value += "\t" + stmt.String() + "\n"
+			for _, stmt := range cs.ElseCondition.Statements {
+				value += "\t" + stmt.String() + "\n"
+			}
+
+			value += "}"
 		}
-
-		value += "}"
 	}
 
 	return value

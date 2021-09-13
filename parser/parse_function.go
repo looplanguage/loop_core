@@ -8,13 +8,14 @@ import (
 )
 
 func (p *Parser) parseCallExpression(fn ast.Expression) ast.Expression {
-	params := p.parseCallArguments()
-
-	return &ast.CallExpression{
-		Token:      p.CurrentToken,
-		Function:   fn,
-		Parameters: params,
+	exp := &ast.CallExpression{
+		Token:    p.CurrentToken,
+		Function: fn,
 	}
+
+	exp.Parameters = p.parseCallArguments()
+
+	return exp
 }
 
 func (p *Parser) parseCallArguments() []ast.Expression {
@@ -26,7 +27,6 @@ func (p *Parser) parseCallArguments() []ast.Expression {
 	}
 
 	p.NextToken()
-
 	exp := p.parseExpression(precedence.LOWEST)
 	arguments = append(arguments, exp)
 
@@ -34,7 +34,14 @@ func (p *Parser) parseCallArguments() []ast.Expression {
 		p.NextToken() // Go to comma
 		p.NextToken() // Go to next arg
 
-		arguments = append(arguments, p.parseExpression(precedence.LOWEST))
+		expression := p.parseExpression(precedence.LOWEST)
+
+		arguments = append(arguments, expression)
+	}
+
+	if p.PeekToken.Type != tokens.RightParenthesis {
+		p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", ")", p.PeekToken.Literal))
+		return nil
 	}
 
 	p.NextToken()
@@ -93,23 +100,24 @@ func (p *Parser) parseFunction() ast.Expression {
 
 	p.NextToken()
 
-	token.Body.Statements = p.parseBlockStatement()
+	token.Body = p.parseBlockStatement()
 
 	return token
 }
 
-func (p *Parser) parseBlockStatement() []ast.Statement {
-	var statements []ast.Statement
+func (p *Parser) parseBlockStatement() *ast.BlockStatement {
+	block := &ast.BlockStatement{Token: p.CurrentToken}
+	block.Statements = []ast.Statement{}
 
 	for p.CurrentToken.Type != tokens.RightBrace && p.CurrentToken.Type != tokens.EOF {
 		stmt := p.parseStatement()
 
 		if stmt != nil {
-			statements = append(statements, stmt)
+			block.Statements = append(block.Statements, stmt)
 		}
 
 		p.NextToken()
 	}
 
-	return statements
+	return block
 }

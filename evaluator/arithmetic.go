@@ -53,16 +53,19 @@ func evalSuffixExpression(left object.Object, right object.Object, operator stri
 	return &object.Error{Message: fmt.Sprintf("invalid operator. got=%q", operator)}
 }
 
-func evalConditionalStatement(condition ast.Expression, ElseCondition ast.BlockStatement, ElseStatement *ast.ConditionalStatement, Body ast.BlockStatement, env *object.Environment) object.Object {
+func evalConditionalStatement(condition ast.Expression, ElseCondition *ast.BlockStatement, ElseStatement *ast.ConditionalStatement, Body *ast.BlockStatement, env *object.Environment) object.Object {
 	run := Eval(condition, env)
 
 	if run, ok := run.(*object.Boolean); ok {
-
 		if run.Value {
 			var lastEval object.Object
 
 			for _, stmt := range Body.Statements {
 				lastEval = Eval(stmt, env)
+			}
+
+			if lastEval == nil {
+				return &object.None{}
 			}
 
 			return lastEval

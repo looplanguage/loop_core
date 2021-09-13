@@ -11,8 +11,6 @@ func evalWhile(condition ast.Expression, block *ast.BlockStatement, env *object.
 
 	bool, ok := exp.(*object.Boolean)
 
-	fmt.Println(bool.Value)
-
 	if !ok {
 		return &object.Error{Message: fmt.Sprintf("wrong expression value. expected=\"BOOLEAN\". got=%q", exp.Type())}
 	}
