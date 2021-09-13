@@ -26,7 +26,7 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 
 	expression.Expression = p.parseExpression(precedence.LOWEST)
 
-	if p.PeekToken.Type == tokens.Semicolon {
+	if p.CurrentToken.Type == tokens.Semicolon {
 		p.NextToken()
 	}
 

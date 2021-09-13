@@ -1,11 +1,7 @@
-var array = [1, 2, true, false];
-
-var double = fun(x) {
-    return x * 2
+var loop = fun(arr, cb) {
+    cb(arr)
 }
 
-len(array)
-
-println(123)
-
-double(50)
+loop([1, 2, 3], fun(a) {
+    println("hey")
+})

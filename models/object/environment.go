@@ -33,6 +33,12 @@ func (e *Environment) Get(key string) Object {
 }
 
 func (e *Environment) Set(key string, value Object) Object {
+	if e.parent != nil {
+		if _, ok := e.parent.variables[key]; ok {
+			return e.parent.Set(key, value)
+		}
+	}
+
 	e.variables[key] = value
 
 	return e.variables[key]

@@ -13,10 +13,6 @@ func (p *Parser) parseArray() ast.Expression {
 	p.NextToken()
 
 	for p.CurrentToken.Type != tokens.RightBracket && p.CurrentToken.Type != tokens.EOF {
-		if p.CurrentToken.Type == tokens.Comma {
-			p.NextToken()
-		}
-
 		exp := p.parseExpression(precedence.LOWEST)
 
 		if exp != nil {
@@ -24,9 +20,15 @@ func (p *Parser) parseArray() ast.Expression {
 		}
 
 		p.NextToken()
+
+		if p.CurrentToken.Type == tokens.Comma {
+			p.NextToken()
+		}
 	}
 
-	p.NextToken()
+	if p.CurrentToken.Type == tokens.Semicolon {
+		p.NextToken()
+	}
 
 	return array
 }
@@ -51,6 +53,5 @@ func (p *Parser) parseIndexExpression(left ast.Expression) ast.Expression {
 		return nil
 	}
 
-	p.NextToken()
 	return indexExpression
 }
