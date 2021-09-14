@@ -18,6 +18,9 @@ var keywords = map[string]TokenType{
 	"else":   Else,
 	"return": Return,
 	"while":  While,
+	"import": Import,
+	"as":     As,
+	"export": Export,
 }
 
 func (t *Token) Name() string {
@@ -56,6 +59,9 @@ var translator = map[TokenType]string{
 	String:              "string",
 	While:               "while",
 	Colon:               "colon",
+	Import:              "import",
+	As:                  "as",
+	Export:              "export",
 }
 
 const (
@@ -90,6 +96,9 @@ const (
 	String
 	While
 	Colon
+	Import
+	As
+	Export
 )
 
 func FindKeyword(keyword string) TokenType {

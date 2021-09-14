@@ -74,6 +74,10 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return evalString(node.Value)
 	case *ast.While:
 		return evalWhile(node.Condition, node.Block, env)
+	case *ast.Import:
+		return evalImportStatement(node, env)
+	case *ast.Export:
+		return evalExportStatement(node, env)
 	case *ast.Hashmap:
 		return evalHashmap(node, env)
 	}

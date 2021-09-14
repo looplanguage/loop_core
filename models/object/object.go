@@ -13,6 +13,8 @@ const (
 	STRING   = "STRING"
 	NONE     = "NONE"
 	HASHMAP  = "HASHMAP"
+	EXPORT   = "EXPORT"
+	IMPORT   = "IMPORT"
 )
 
 type Object interface {

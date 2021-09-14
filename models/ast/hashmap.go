@@ -22,7 +22,7 @@ func (h *Hashmap) String() string {
 		values = append(values, fmt.Sprintf("%v: %v", key.String(), val.String()))
 	}
 
-	value += strings.Join(values, ", ")
+	value += strings.Join(values, ", ") + "}"
 
 	return value
 }

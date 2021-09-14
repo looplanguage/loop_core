@@ -14,6 +14,10 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseReturn()
 	case tokens.VariableDeclaration:
 		return p.parseVariable()
+	case tokens.Import:
+		return p.parseImportStatement()
+	case tokens.Export:
+		return p.parseExportStatement()
 	default:
 		return p.parseExpressionStatement()
 	}
