@@ -12,6 +12,7 @@ const (
 	BUILTIN  = "BUILTIN"
 	STRING   = "STRING"
 	NONE     = "NONE"
+	HASHMAP  = "HASHMAP"
 )
 
 type Object interface {
@@ -25,6 +26,12 @@ type Integer struct {
 
 func (i *Integer) Type() string    { return INTEGER }
 func (i *Integer) Inspect() string { return fmt.Sprintf("%d", i.Value) }
+func (i *Integer) Hash() HashKey {
+	return HashKey{
+		Type:  i.Type(),
+		Value: uint64(i.Value),
+	}
+}
 
 type Error struct {
 	Message string

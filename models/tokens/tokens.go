@@ -55,6 +55,7 @@ var translator = map[TokenType]string{
 	Return:              "return",
 	String:              "string",
 	While:               "while",
+	Colon:               "colon",
 }
 
 const (
@@ -88,6 +89,7 @@ const (
 	Return
 	String
 	While
+	Colon
 )
 
 func FindKeyword(keyword string) TokenType {
