@@ -65,7 +65,7 @@ func evalConditionalStatement(condition ast.Expression, ElseCondition *ast.Block
 			}
 
 			if lastEval == nil {
-				return &object.None{}
+				return &object.Null{}
 			}
 
 			return lastEval

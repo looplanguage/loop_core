@@ -56,7 +56,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		}
 
 		if val == nil {
-			val = &object.None{}
+			val = &object.Null{}
 		}
 
 		return val

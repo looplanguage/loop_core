@@ -23,7 +23,7 @@ func evalWhile(condition ast.Expression, block *ast.BlockStatement, env *object.
 		rValue = Eval(block, env)
 	}
 
-	rValue = &object.None{}
+	rValue = &object.Null{}
 
 	return rValue
 }

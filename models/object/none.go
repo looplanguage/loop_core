@@ -1,6 +1,6 @@
 package object
 
-type None struct{}
+type Null struct{}
 
-func (n *None) Type() string    { return NONE }
-func (n *None) Inspect() string { return "undefined" }
+func (n *Null) Type() string    { return NONE }
+func (n *Null) Inspect() string { return "null" }

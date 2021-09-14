@@ -35,7 +35,7 @@ func Execute() {
 		} else {
 			evaluated := evaluator.Eval(program, env)
 
-			_, none := evaluated.(*object.None)
+			_, none := evaluated.(*object.Null)
 
 			if !none {
 				fmt.Println(evaluated.Inspect())
@@ -74,7 +74,7 @@ func Execute() {
 		} else {
 			evaluated := evaluator.Eval(program, env)
 
-			_, none := evaluated.(*object.None)
+			_, none := evaluated.(*object.Null)
 
 			if !none {
 				fmt.Println(evaluated.Inspect())
