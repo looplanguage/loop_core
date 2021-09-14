@@ -80,6 +80,8 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = createToken(tokens.RightBracket, l)
 	case '"':
 		token = createToken(tokens.String, l)
+	case ':':
+		token = createToken(tokens.Colon, l)
 	default:
 		if isNumber(l.character) {
 			return createToken(tokens.Integer, l)

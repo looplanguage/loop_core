@@ -8,5 +8,5 @@ var for = fun(arr, cb) {
 }
 
 for(["omg", "it", "works", "!", 0], fun(key, value) {
-    println(key, ":1 ", value)
+    println(key, " : ", value)
 })
