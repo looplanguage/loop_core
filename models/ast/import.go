@@ -20,6 +20,7 @@ type Import struct {
 	Token      tokens.Token
 	File       string
 	Identifier string
+	Caller     string
 }
 
 func (i *Import) statementNode()       {}

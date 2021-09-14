@@ -3,10 +3,11 @@ package object
 type Environment struct {
 	variables map[string]Object
 	parent    *Environment
+	FileRoot  string
 }
 
-func CreateEnvironment() *Environment {
-	return &Environment{variables: make(map[string]Object)}
+func CreateEnvironment(fileroot string) *Environment {
+	return &Environment{variables: make(map[string]Object), FileRoot: fileroot}
 }
 
 func CreateEnclosedEnvironment(env *Environment) *Environment {

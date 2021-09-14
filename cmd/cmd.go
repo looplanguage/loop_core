@@ -21,7 +21,7 @@ func Execute() {
 			log.Fatal(err)
 		}
 
-		env := object.CreateEnvironment()
+		env := object.CreateEnvironment("")
 
 		l := lexer.Create(string(input))
 		p := parser.Create(l)
@@ -48,7 +48,7 @@ func Execute() {
 	// REPL here for testing while developing
 	reader := bufio.NewScanner(os.Stdin)
 
-	env := object.CreateEnvironment()
+	env := object.CreateEnvironment("")
 
 	// TODO: Support up arrow to get last command
 	for {
