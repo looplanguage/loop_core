@@ -43,3 +43,7 @@ func (e *Environment) Set(key string, value Object) Object {
 
 	return e.variables[key]
 }
+
+func (e *Environment) GetAll() map[string]Object {
+	return e.variables
+}

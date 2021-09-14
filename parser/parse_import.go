@@ -20,7 +20,6 @@ func (p *Parser) parseExportStatement() ast.Statement {
 	p.NextToken()
 
 	tok.Expression = p.parseExpression(precedence.LOWEST)
-	fmt.Println(tok.Expression.String())
 
 	return tok
 }

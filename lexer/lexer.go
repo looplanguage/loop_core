@@ -124,7 +124,11 @@ func (l *Lexer) readNumber() string {
 func (l *Lexer) readIdentifier() string {
 	position := l.curPosition
 
-	for isCharacter(l.character) {
+	if isCharacter(l.character) {
+		l.NextCharacter()
+	}
+
+	for isCharacter(l.character) || isNumber(l.character) {
 		l.NextCharacter()
 	}
 
@@ -155,7 +159,7 @@ func isNumber(input rune) bool {
 }
 
 func isCharacter(input rune) bool {
-	if unicode.IsLetter(input) {
+	if unicode.IsLetter(input) || input == '_' {
 		return true
 	}
 

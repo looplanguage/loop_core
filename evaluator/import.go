@@ -28,5 +28,18 @@ func evalImportStatement(imp *ast.Import, env *object.Environment) object.Object
 	newEnv := object.CreateEnvironment()
 	Eval(program, newEnv)
 
-	return env.Set(imp.Identifier, newEnv.Get("__EXPORT"))
+	if imp.Identifier == "_" {
+		var v object.Object
+		for key, value := range newEnv.GetAll() {
+			v = env.Set(key, value)
+		}
+
+		if v == nil {
+			v = &object.Null{}
+		}
+
+		return v
+	} else {
+		return env.Set(imp.Identifier, newEnv.Get("__EXPORT"))
+	}
 }
