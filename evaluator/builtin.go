@@ -26,11 +26,6 @@ var BuiltinFunctions = map[string]*object.BuiltinFunction{
 			return Print(args, "")
 		},
 	},
-	"println": {
-		Function: func(args []object.Object) object.Object {
-			return Print(args, "\n")
-		},
-	},
 }
 
 func Print(args []object.Object, suffix string) object.Object {
