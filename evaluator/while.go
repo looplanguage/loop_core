@@ -21,9 +21,15 @@ func evalWhile(condition ast.Expression, block *ast.BlockStatement, env *object.
 		bool = Eval(condition, env).(*object.Boolean)
 
 		rValue = Eval(block, env)
+
+		if _, ok := rValue.(*object.Return); ok {
+			break
+		}
 	}
 
-	rValue = &object.Null{}
+	if rValue == nil {
+		rValue = &object.Null{}
+	}
 
 	return rValue
 }

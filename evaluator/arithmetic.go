@@ -72,7 +72,7 @@ func evalConditionalStatement(condition ast.Expression, ElseCondition *ast.Block
 		} else {
 			if ElseStatement != nil {
 				return evalConditionalStatement(ElseStatement.Condition, ElseStatement.ElseCondition, ElseStatement.ElseStatement, ElseStatement.Body, env)
-			} else if len(ElseCondition.Statements) > 0 {
+			} else if ElseCondition != nil && len(ElseCondition.Statements) > 0 {
 				var lastEval object.Object
 
 				for _, stmt := range ElseCondition.Statements {
@@ -82,7 +82,9 @@ func evalConditionalStatement(condition ast.Expression, ElseCondition *ast.Block
 				return lastEval
 			}
 		}
+	} else {
+		return &object.Error{Message: fmt.Sprintf("condition is of invalid type. expected=%q. got=%q", "BOOLEAN", run.Type())}
 	}
 
-	return &object.Error{Message: fmt.Sprintf("condition is of invalid type. expected=%q. got=%q", "BOOLEAN", run.Type())}
+	return &object.Null{}
 }
