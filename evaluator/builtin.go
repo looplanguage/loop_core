@@ -3,6 +3,7 @@ package evaluator
 import (
 	"fmt"
 	"git.kanersps.pw/loop/models/object"
+	"strings"
 )
 
 var BuiltinFunctions = map[string]*object.BuiltinFunction{
@@ -37,7 +38,7 @@ func Print(args []object.Object, suffix string) object.Object {
 
 	for _, arg := range args {
 		if str, ok := arg.(*object.String); ok {
-			value := fmt.Sprintf("%s", str.Value)
+			value := strings.Replace(str.Value, `\n`, "\n", -1)
 
 			values += value
 			continue
