@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"git.kanersps.pw/loop/models/tokens"
+	"github.com/looplanguage/loop/models/tokens"
 	"testing"
 )
 

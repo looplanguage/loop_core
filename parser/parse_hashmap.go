@@ -2,9 +2,9 @@ package parser
 
 import (
 	"fmt"
-	"git.kanersps.pw/loop/models/ast"
-	"git.kanersps.pw/loop/models/tokens"
-	"git.kanersps.pw/loop/parser/precedence"
+	"github.com/looplanguage/loop/models/ast"
+	"github.com/looplanguage/loop/models/tokens"
+	"github.com/looplanguage/loop/parser/precedence"
 )
 
 func (p *Parser) parseHashmap() ast.Expression {

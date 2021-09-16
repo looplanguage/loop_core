@@ -2,7 +2,7 @@ package ast
 
 import (
 	"fmt"
-	"git.kanersps.pw/loop/models/tokens"
+	"github.com/looplanguage/loop/models/tokens"
 )
 
 type Identifier struct {

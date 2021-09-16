@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"git.kanersps.pw/loop/lexer"
+	"github.com/looplanguage/loop/lexer"
 	"testing"
 )
 

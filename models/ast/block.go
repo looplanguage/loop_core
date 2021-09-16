@@ -1,6 +1,6 @@
 package ast
 
-import "git.kanersps.pw/loop/models/tokens"
+import "github.com/looplanguage/loop/models/tokens"
 
 type BlockStatement struct {
 	Token      tokens.Token

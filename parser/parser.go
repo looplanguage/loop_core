@@ -2,9 +2,9 @@ package parser
 
 import (
 	"fmt"
-	"git.kanersps.pw/loop/lexer"
-	"git.kanersps.pw/loop/models/ast"
-	"git.kanersps.pw/loop/models/tokens"
+	"github.com/looplanguage/loop/lexer"
+	"github.com/looplanguage/loop/models/ast"
+	"github.com/looplanguage/loop/models/tokens"
 )
 
 type prefixParseFunction func() ast.Expression

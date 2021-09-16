@@ -1,3 +1,3 @@
-module git.kanersps.pw/loop
+module github.com/looplanguage/loop
 
 go 1.17

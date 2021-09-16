@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"git.kanersps.pw/loop/models/ast"
-	"git.kanersps.pw/loop/parser/precedence"
+	"github.com/looplanguage/loop/models/ast"
+	"github.com/looplanguage/loop/parser/precedence"
 )
 
 func (p *Parser) parseReturn() ast.Statement {

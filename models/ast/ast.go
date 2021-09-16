@@ -1,6 +1,6 @@
 package ast
 
-import "git.kanersps.pw/loop/models/tokens"
+import "github.com/looplanguage/loop/models/tokens"
 
 type Node interface {
 	TokenLiteral() string
@@ -41,11 +41,11 @@ func (p *Program) String() string {
 }
 
 type ExpressionStatement struct {
-	Token tokens.Token
+	Token      tokens.Token
 	Expression Expression
 }
 
-func (e *ExpressionStatement) statementNode() { }
+func (e *ExpressionStatement) statementNode()       {}
 func (e *ExpressionStatement) TokenLiteral() string { return e.Token.Name() }
 func (e *ExpressionStatement) String() string {
 	if e.Expression != nil {

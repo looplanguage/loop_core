@@ -1,6 +1,6 @@
 package object
 
-import "git.kanersps.pw/loop/models/ast"
+import "github.com/looplanguage/loop/models/ast"
 
 type Return struct {
 	Value ast.Expression

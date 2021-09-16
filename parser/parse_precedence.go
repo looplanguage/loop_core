@@ -1,6 +1,6 @@
 package parser
 
-import "git.kanersps.pw/loop/parser/precedence"
+import "github.com/looplanguage/loop/parser/precedence"
 
 func (p *Parser) peekPrecedence() int {
 	if precedence, ok := precedence.Precedences[p.PeekToken.Type]; ok {

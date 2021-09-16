@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"git.kanersps.pw/loop/models/ast"
+	"github.com/looplanguage/loop/models/ast"
 )
 
 func (p *Parser) parseIdentifier() ast.Expression {

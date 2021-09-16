@@ -1,6 +1,6 @@
 package precedence
 
-import "git.kanersps.pw/loop/models/tokens"
+import "github.com/looplanguage/loop/models/tokens"
 
 const (
 	LOWEST int = iota
