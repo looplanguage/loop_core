@@ -41,6 +41,8 @@ func Create(l *lexer.Lexer) *Parser {
 	parser.registerPrefixParser(tokens.String, parser.parseString)
 	parser.registerPrefixParser(tokens.While, parser.parseWhileLoop)
 	parser.registerPrefixParser(tokens.LeftBrace, parser.parseHashmap)
+	parser.registerPrefixParser(tokens.Minus, parser.parseMinusInteger)
+	parser.registerPrefixParser(tokens.Bang, parser.parseInvertedBoolean)
 
 	// Register suffix parsers
 	parser.registerSuffixParser(tokens.Plus, parser.parseSuffixExpression)

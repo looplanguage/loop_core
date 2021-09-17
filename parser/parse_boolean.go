@@ -10,3 +10,10 @@ func (p *Parser) parseBoolean() ast.Expression {
 		Value: p.CurrentToken.Literal == "true",
 	}
 }
+
+func (p *Parser) parseInvertedBoolean() ast.Expression {
+	return &ast.Boolean{
+		Token: p.CurrentToken,
+		Value: p.CurrentToken.Literal != "true",
+	}
+}

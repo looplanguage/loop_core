@@ -82,6 +82,8 @@ func (l *Lexer) NextToken() tokens.Token {
 		token = createToken(tokens.String, l)
 	case ':':
 		token = createToken(tokens.Colon, l)
+	case '!':
+		token = createToken(tokens.Bang, l)
 	default:
 		if isNumber(l.character) {
 			return createToken(tokens.Integer, l)
@@ -193,6 +195,12 @@ func createToken(token tokens.TokenType, l *Lexer) tokens.Token {
 			if l.PeekCharacter() == '=' {
 				token = tokens.Equals
 				literal = "<="
+				l.NextCharacter()
+			}
+		case '!':
+			if l.PeekCharacter() == '=' {
+				token = tokens.NotEquals
+				literal = "!="
 				l.NextCharacter()
 			}
 		case '"':

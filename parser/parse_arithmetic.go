@@ -80,6 +80,21 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 	return expr
 }
 
+func (p *Parser) parseMinusInteger() ast.Expression {
+	integer, err := strconv.ParseInt(p.CurrentToken.Literal, 0, 64)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	expr := &ast.IntegerLiteral{
+		Token: p.CurrentToken,
+		Value: -integer,
+	}
+
+	return expr
+}
+
 func (p *Parser) parseSuffixExpression(left ast.Expression) ast.Expression {
 	exp := &ast.SuffixExpression{
 		Token:    p.CurrentToken,

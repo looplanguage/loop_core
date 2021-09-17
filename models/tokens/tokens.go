@@ -53,6 +53,7 @@ var translator = map[TokenType]string{
 	LesserThan:          "<",
 	GreaterEqualsThan:   ">=",
 	LesserEqualsThan:    "<=",
+	NotEquals:           "!=",
 	LeftBracket:         "[",
 	RightBracket:        "]",
 	Return:              "return",
@@ -62,6 +63,7 @@ var translator = map[TokenType]string{
 	Import:              "import",
 	As:                  "as",
 	Export:              "export",
+	Bang:                "!",
 }
 
 const (
@@ -99,6 +101,8 @@ const (
 	Import
 	As
 	Export
+	Bang
+	NotEquals
 )
 
 func FindKeyword(keyword string) TokenType {
