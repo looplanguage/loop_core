@@ -59,8 +59,6 @@ func (p *Parser) parseConditionalStatement() ast.Expression {
 			p.NextToken()
 			token.ElseCondition = p.parseBlockStatement()
 		}
-
-		p.NextToken()
 	}
 
 	return token

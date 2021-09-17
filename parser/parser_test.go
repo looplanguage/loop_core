@@ -12,7 +12,8 @@ var test = 1;
 test;
 true; false;
 
-if(true) {} else if(true) {} else if(true) {} else {}
+if(true) {} else if(true) {}else if(true) {} else {};
+1000;
 `
 
 	l := lexer.Create(input)
@@ -20,7 +21,7 @@ if(true) {} else if(true) {} else if(true) {} else {}
 
 	program := p.Parse()
 
-	if len(program.Statements) != 6 {
+	if len(program.Statements) != 8 {
 		t.Fatalf("len(program.Statements) is not correct. expected=%d. got=%d", 7, len(program.Statements))
 	}
 }
