@@ -3,18 +3,19 @@ package object
 import "fmt"
 
 const (
-	INTEGER  = "INTEGER"
-	ERROR    = "ERROR"
-	FUNCTION = "FUNCTION"
-	BOOLEAN  = "BOOLEAN"
-	ARRAY    = "ARRAY"
-	RETURN   = "RETURN"
-	BUILTIN  = "BUILTIN"
-	STRING   = "STRING"
-	NONE     = "NONE"
-	HASHMAP  = "HASHMAP"
-	EXPORT   = "EXPORT"
-	IMPORT   = "IMPORT"
+	INTEGER           = "INTEGER"
+	ERROR             = "ERROR"
+	FUNCTION          = "FUNCTION"
+	BOOLEAN           = "BOOLEAN"
+	ARRAY             = "ARRAY"
+	RETURN            = "RETURN"
+	BUILTIN           = "BUILTIN"
+	STRING            = "STRING"
+	NONE              = "NONE"
+	HASHMAP           = "HASHMAP"
+	EXPORT            = "EXPORT"
+	IMPORT            = "IMPORT"
+	COMPILED_FUNCTION = "COMPILED_FUNCTION"
 )
 
 type Object interface {
