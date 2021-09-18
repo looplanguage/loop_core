@@ -16,6 +16,7 @@ func (f *Function) Inspect() string { return "function" }
 
 type CompiledFunction struct {
 	Instructions []byte
+	NumLocals    int
 }
 
 func (cf *CompiledFunction) Type() string    { return COMPILED_FUNCTION }
