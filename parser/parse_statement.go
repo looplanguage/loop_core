@@ -19,7 +19,6 @@ func (p *Parser) parseStatement() ast.Statement {
 	case tokens.Export:
 		return p.parseExportStatement()
 	default:
-		fmt.Println(p.CurrentToken.Literal)
 		return p.parseExpressionStatement()
 	}
 }
