@@ -38,5 +38,9 @@ func (p *Parser) parseVariable() ast.Statement {
 
 	variable.Value = exp
 
+	if p.peekTokenIs(tokens.Semicolon) {
+		p.NextToken()
+	}
+
 	return variable
 }
