@@ -16,6 +16,7 @@ const (
 	EXPORT            = "EXPORT"
 	IMPORT            = "IMPORT"
 	COMPILED_FUNCTION = "COMPILED_FUNCTION"
+	CLOSURE           = "CLOSURE"
 )
 
 type Object interface {
