@@ -18,6 +18,7 @@ type CompiledFunction struct {
 	Instructions  []byte
 	NumLocals     int
 	NumParameters int
+	Id            int
 }
 
 func (cf *CompiledFunction) Type() string    { return COMPILED_FUNCTION }
