@@ -18,6 +18,12 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseImportStatement()
 	case tokens.Export:
 		return p.parseExportStatement()
+	case tokens.Identifier:
+		if p.peekTokenIs(tokens.Assign) {
+			return p.parseAssignExpression()
+		}
+
+		return p.parseExpressionStatement()
 	default:
 		return p.parseExpressionStatement()
 	}

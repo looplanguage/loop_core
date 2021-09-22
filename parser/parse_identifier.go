@@ -5,8 +5,11 @@ import (
 )
 
 func (p *Parser) parseIdentifier() ast.Expression {
-	return &ast.Identifier{
+
+	identifier := &ast.Identifier{
 		Token: p.CurrentToken,
 		Value: p.CurrentToken.Literal,
 	}
+
+	return identifier
 }
