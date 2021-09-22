@@ -29,8 +29,6 @@ func (p *Parser) parseAssignExpression() ast.Statement {
 	assign.Identifier = left.(*ast.Identifier)
 	assign.Value = value
 
-	fmt.Println(assign)
-
 	return assign
 }
 
