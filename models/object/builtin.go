@@ -78,5 +78,31 @@ var Builtins = []struct {
 			},
 		},
 	},
-	{},
+	{
+		"slice",
+		&BuiltinFunction{
+			Function: func(args []Object) Object {
+				if len(args) <= 2 {
+					return &Error{Message: fmt.Sprintf("wrong number of arguments. expected=%d. got=%d", 3, len(args))}
+				}
+
+				array, ok := args[0].(*Array)
+				if !ok {
+					return &Error{Message: fmt.Sprintf("wrong argument. expected=\"ARRAY\". got=%q", args[0].Type())}
+				}
+
+				start, ok := args[1].(*Integer)
+				if !ok {
+					return &Error{Message: fmt.Sprintf("wrong argument. expected=\"INTEGER\". got=%q", args[0].Type())}
+				}
+
+				end, ok := args[2].(*Integer)
+				if !ok {
+					return &Error{Message: fmt.Sprintf("wrong argument. expected=\"INTEGER\". got=%q", args[0].Type())}
+				}
+
+				return &Array{Elements: array.Elements[start.Value:end.Value]}
+			},
+		},
+	},
 }
