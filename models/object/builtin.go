@@ -54,4 +54,55 @@ var Builtins = []struct {
 			},
 		},
 	},
+	{
+		"append",
+		&BuiltinFunction{
+			Function: func(args []Object) Object {
+				if len(args) <= 1 {
+					return &Error{Message: fmt.Sprintf("wrong number of arguments. expected=%d. got=%d", 2, len(args))}
+				}
+
+				if args[0].Type() != "ARRAY" {
+					return &Error{Message: fmt.Sprintf("wrong first argument. expected=%q. got=%q", "ARRAY", args[0].Type())}
+				}
+
+				array := args[0].(*Array)
+
+				newArray := &Array{Elements: array.Elements}
+
+				args = args[1:]
+
+				newArray.Elements = append(newArray.Elements, args...)
+
+				return newArray
+			},
+		},
+	},
+	{
+		"slice",
+		&BuiltinFunction{
+			Function: func(args []Object) Object {
+				if len(args) <= 2 {
+					return &Error{Message: fmt.Sprintf("wrong number of arguments. expected=%d. got=%d", 3, len(args))}
+				}
+
+				array, ok := args[0].(*Array)
+				if !ok {
+					return &Error{Message: fmt.Sprintf("wrong argument. expected=\"ARRAY\". got=%q", args[0].Type())}
+				}
+
+				start, ok := args[1].(*Integer)
+				if !ok {
+					return &Error{Message: fmt.Sprintf("wrong argument. expected=\"INTEGER\". got=%q", args[0].Type())}
+				}
+
+				end, ok := args[2].(*Integer)
+				if !ok {
+					return &Error{Message: fmt.Sprintf("wrong argument. expected=\"INTEGER\". got=%q", args[0].Type())}
+				}
+
+				return &Array{Elements: array.Elements[start.Value:end.Value]}
+			},
+		},
+	},
 }
