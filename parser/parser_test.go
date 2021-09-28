@@ -17,6 +17,8 @@ true; false;
 if(true) {} else if(true) {}else if(true) {} else {};
 1000;
 i = 100
+
+test[0] = 20
 `
 
 	l := lexer.Create(input)
@@ -31,7 +33,7 @@ i = 100
 		log.Fatalln("Errors! ^")
 	}
 
-	if len(program.Statements) != 8 {
+	if len(program.Statements) != 9 {
 		t.Fatalf("len(program.Statements) is not correct. expected=%d. got=%d", 7, len(program.Statements))
 	}
 }
