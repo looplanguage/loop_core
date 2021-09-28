@@ -54,4 +54,29 @@ var Builtins = []struct {
 			},
 		},
 	},
+	{
+		"append",
+		&BuiltinFunction{
+			Function: func(args []Object) Object {
+				if len(args) <= 1 {
+					return &Error{Message: fmt.Sprintf("wrong number of arguments. expected=%d. got=%d", 2, len(args))}
+				}
+
+				if args[0].Type() != "ARRAY" {
+					return &Error{Message: fmt.Sprintf("wrong first argument. expected=%q. got=%q", "ARRAY", args[0].Type())}
+				}
+
+				array := args[0].(*Array)
+
+				newArray := &Array{Elements: array.Elements}
+
+				args = args[1:]
+
+				newArray.Elements = append(newArray.Elements, args...)
+
+				return newArray
+			},
+		},
+	},
+	{},
 }
