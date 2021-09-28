@@ -48,6 +48,7 @@ func (p *Parser) parseIndexExpression(left ast.Expression) ast.Expression {
 	}
 
 	p.NextToken()
+
 	if p.CurrentToken.Type != tokens.RightBracket {
 		p.AddError(fmt.Sprintf("wrong token. expected=%q. got=%q", "]", p.CurrentToken.Literal))
 		return nil

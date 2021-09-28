@@ -29,7 +29,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	}
 }
 
-func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
+func (p *Parser) parseExpressionStatement() ast.Statement {
 	expression := &ast.ExpressionStatement{
 		Token: p.CurrentToken,
 	}
@@ -38,6 +38,23 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 
 	if p.PeekToken.Type == tokens.Semicolon {
 		p.NextToken()
+	}
+
+	if arr, ok := expression.Expression.(*ast.IndexExpression); ok {
+		fmt.Println(":)")
+		if p.peekTokenIs(tokens.Assign) {
+			p.NextToken()
+			p.NextToken()
+
+			value := p.parseExpression(precedence.LOWEST)
+
+			return &ast.IndexAssign{
+				Token:  p.CurrentToken,
+				Object: arr.Value,
+				Index:  arr.Index,
+				Value:  value,
+			}
+		}
 	}
 
 	return expression
