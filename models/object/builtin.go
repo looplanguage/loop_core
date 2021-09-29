@@ -19,10 +19,12 @@ func GetBuiltinByName(name string) *BuiltinFunction {
 	return nil
 }
 
-var Builtins = []struct {
+type Builtin struct {
 	Name    string
 	Builtin *BuiltinFunction
-}{
+}
+
+var Builtins = []Builtin{
 	{
 		"len",
 		&BuiltinFunction{
@@ -104,5 +106,11 @@ var Builtins = []struct {
 				return &Array{Elements: array.Elements[start.Value:end.Value]}
 			},
 		},
+	},
+	{
+		"httpServer",
+		&BuiltinFunction{Function: func(args []Object) Object {
+			return &Null{}
+		}},
 	},
 }
